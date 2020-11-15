@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tera Gift</title>
+	
+
+	<style type="text/css">
+		
+		.borderr{
+			border: 2px black solid;
+		}
+
+	</style>
+
+
+
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+	<div class="jumboton text-center">
+		<!-- <h1>"ZAIN YAZDAN"</h1> -->
+		<!-- <img style="width: 100%; height: 150px" src="./banner2.png"> -->
+		
+		<!-- <img style="width: 100%; height: 200px" src="./banner.jpg"> -->
+
+	 </div>
+
+	<div style="padding: 20px">
+		
+		<!-- <div class="text-center" ><img style="width: 100%" class="img-fluid" src="./gif.gif" ></div> -->
+
+		<br><br>
+
+		<!-- <div class="text-center"><img style="width: 100%" class="img-fluid" src="./shair.jpg"></div> -->
+
+	</div>
+
+
+
+	<br>
+	<br>
+
+	<div class="text-center" style="padding: 20px"> 
+		<h3 >A small message from me</h3>
+		<br>
+		<!-- <p class="text-justify">
+			A very warm HAPPY BIRTHDAY to my <b>favourite cousin</b>  FARHEEN ... Allah tujhe lambi zindgi de... tu hamesha
+			khush rhe... mein ye ni kahu ga k "tu jiye hazaro saal".. qk 90 ki umer mein bnde ka kutte ka haal 
+			ho jata hai to 1000 mein to sirf hadiyan hi bachein gi 😂... May your birthday be as beautiful and wonderful
+			 as you are... jo zindgi mein banna chahti hai ban.. Best Of luck for the Bright Future... Tera future itna
+			bright ho k teri ankhein khul jae 🤣.. don't mind.. joke tha... Allah tujhe acha sa hubby de jo kamazkam mere
+			jitni teri izzat aur kadar kre... mein jo kehta hu us ka bure na manaya kr.. bs mazakh hota hai wo.. 
+			ye mein jo kuch likha hai dil se likha hai... koi acting ka fakeness ni hai is mein... 
+			Mera ye gift pasand aya ho to zaroor btai... and last not the least, I will always remember you in my good books... agr meri kisi baat ka bura lga to kabhi bhi to maaf kri apne is pagal se bhai+C=D ko 😅 🙏...
+			us sharat ka pta ni... mujhe ye pta hai k aj tk aesa gift na tujhe mila hoga na hi koi de ga... aur ye shart
+			mein yakken se kehta hu k mein hi jetu ga... I hope so k ab kuch na kuch asar hua hoga meri baton ka... 
+			ab marzi hai teri k mujhe shart jitani hai ya harani hai 😅... it's all your choice... both answers will be acceptable... agr ye parh k kuch khyaal aya hai ya kuch kehna chahti hai to 
+			neche text box mein likh k "send message" k button pe click kr de.. mujhe mil jae ga tera message... jitni marzi dfa likh aur send kri ja..
+			mujhe mil jae ge tere message... aur kuch swal puche huye hain neche un k jwab bhi de dei sachi sachi... next pe click kreg i to agla swal aa jae ga...
+			and once again<b> "HAPPY BIRTHDAY" to my dearest cousin </b> 🎂... 
+		</p>
+		 -->
+	</div>
+
+
+
+		<div class="text-center" ><h3>Send your message </h3> <br>
+			<textarea placeholder=" Yaha likh apna message"  id="message" name="" rows="8" cols="100" ></textarea>	
+		<br>
+		<br>
+		
+		<div id="messageError" style="color: red"></div>
+
+		<button class="btn btn-success" onclick="addmessage()">Send Message</button>
+		</div>
+
+
+
+	<br>
+<br><br>
+
+
+
+
+		<div class="text-center">
+				<center><h3>Answer some questions</h3></center> 
+				<br><br>
+
+			 <h4> Question # <span id="questionNo">1</span> </h4>  <br>
+
+			 <h5 id="question"> What is your name ?	</h5>  <br>
+			
+			
+			<div class="text-center">
+				<textarea placeholder=" Yaha likh apna answer"  id="answer" rows="3" cols="100" ></textarea>					
+			</div>
+
+			<div id="answerError" style="color: red"></div>
+
+
+		</div>
+
+			<br>
+
+
+		<div class="text-center" style="padding-right:150px; padding-left: 150px">
+
+			<button class="btn btn-secondary float-left" onclick="loadQuestion()">Previous</button>
+			<button class="btn btn-success float-none" onclick="answerQuestion()">Send answer </button>
+			<button class="btn btn-secondary float-right"  onclick="loadQuestion()">Next</button>
+			
+		</div>
+
+
+<br><br>
+
+
+	<script src="main.js"></script>
+</body>
+</html>
