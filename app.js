@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var questionRouter = require('./routes/questions');
 
+require('dotenv').config()
+
 var app = express();
 
 // view engine setup
@@ -22,11 +24,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
-
-var DB_URL = "mongodb://localhost:27017/gift"
+var DB_URL;
+if(process.env.NODE_MODE == "developing")
+{
+  DB_URL = process.env.LOCAL_DATABASE_LINK;
+}
+else{
+  DB_URL = process.env.ONLINE_DATABASE_LINK;
+}
 
 console.log("DATABASE LINK : " + DB_URL);
 

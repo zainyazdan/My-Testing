@@ -78,8 +78,9 @@
 			<textarea placeholder=" Yaha likh apna message"  id="message" name="" rows="8" cols="100" ></textarea>	
 		<br>
 		<br>
-		
+
 		<div id="messageError" style="color: red"></div>
+		<div id="messageSuccess" style="color: green"></div>
 
 		<button class="btn btn-success" onclick="addmessage()">Send Message</button>
 		</div>
@@ -106,6 +107,7 @@
 			</div>
 
 			<div id="answerError" style="color: red"></div>
+			<div id="answerSuccess" style="color: green"></div>
 
 
 		</div>
@@ -115,9 +117,9 @@
 
 		<div class="text-center" style="padding-right:150px; padding-left: 150px">
 
-			<button class="btn btn-secondary float-left" onclick="loadQuestion()">Previous</button>
-			<button class="btn btn-success float-none" onclick="answerQuestion()">Send answer </button>
-			<button class="btn btn-secondary float-right"  onclick="loadQuestion()">Next</button>
+			<!-- <button class="btn btn-secondary float-left" onclick="loadQuestion()">Previous</button> -->
+			<button class="btn btn-success float-none" onclick="answerQuestion()">Send answer</button>
+			<!-- <button class="btn btn-secondary float-right"  onclick="loadQuestion()">Next</button> -->
 			
 		</div>
 

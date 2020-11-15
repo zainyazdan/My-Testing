@@ -75,8 +75,14 @@ async function answerQuestion()
         return;
     }
 
-    addAnswer(currentQuestionNo, data);
+    await addAnswer(currentQuestionNo, data);
+    document.getElementById('answerSuccess').innerHTML = "Answer successfully sended";
 
+    setTimeout(() => {  
+        document.getElementById('answerSuccess').innerHTML = "";
+    }, 3000);
+
+    
 
     console.log("currentQuestionNo_ : " + currentQuestionNo);
     console.log("totalQuestions_ : " + totalQuestions);
@@ -124,7 +130,6 @@ async function addmessage()
 {
 
     var text = document.getElementById('message').value;
-
     if(text.length <= 1)
     {
         document.getElementById('messageError').innerHTML = "Pura message to likh";
@@ -142,7 +147,15 @@ async function addmessage()
        },
       data : data
     };
-    
+    document.getElementById('message').value = "";
+
+    document.getElementById('messageSuccess').innerHTML = "Answer successfully sended";
+
+    setTimeout(() => {  
+        document.getElementById('messageSuccess').innerHTML = "";
+    }, 3000);
+
+
     var result = await axios(config);
     console.log("result : " , result.data);
 }
