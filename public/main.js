@@ -2,7 +2,18 @@ var currentQuestionNo = 1;
 var totalQuestions = 0;
 var questionFetching = false;
 
-loadInitialData();
+// loadInitialData();
+
+loadTimeAndDate();
+
+function loadTimeAndDate()
+{
+    var date = getCurrentDate();
+    var time = getCurrentTime();
+    var data = "Date: " + date + " , time: "+ time;;
+    console.log("data: " + data);
+    document.getElementById('timeanddate').innerHTML = data
+}
 
 
 
@@ -165,6 +176,36 @@ async function addmessage()
 
 
 
+
+
+function getCurrentDate()
+{
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //As January is 0.
+  var yyyy = today.getFullYear();
+  var newDate = dd+"-"+mm+"-"+yyyy;
+
+  // console.log("date : " + newDate);
+
+  return newDate;
+}
+
+
+
+
+function getCurrentTime()
+{
+
+  var d = new Date(); // for now
+  d.getHours(); // => 9
+  d.getMinutes(); // =>  30
+  d.getSeconds(); // => 51
+  var newTime = d.getHours() + ":" + d.getMinutes() + ":" +  d.getSeconds();
+  console.log("newTime : " + newTime);
+
+  return newTime;
+}
 
 
 
