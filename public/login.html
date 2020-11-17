@@ -23,55 +23,28 @@
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<style>
-	.box{
-		height: 100px; 
-		width: 75px; 
-		background-color: #201570; 
-		color: white;
-		padding: 10px;
-		margin: 10px;
-		float: left
-	}
-
-	.borderr{
-		border: 1px solid black
-	}
-
-.timerOuterDiv{width: 370px; margin: auto;}
-.timerDiv1{text-align:center; margin-bottom: 10px; font-size: 22px;}
-.timerDiv{float: left; width: 85px; text-align: center; background: #1f6098; color: #ffffff; border-radius: 4px; margin-left: 5px; padding-bottom: 13px;}
-.timerDiv h4{font-size: 40px; margin: 6px 0px;}
-/*#timerDays{font-size: 90px; margin-bottom: 0px; margin-top: 0px;}*/
-
-</style>
-
 </head>
 <body>
 
+	<div id="loginPage" >
 
-<div class="jumbotron text-center" > 
-	<h1>Time Left <img height="50" src="./timer.gif"> </h1> 
-		<br>
-	
+		<div class="text-center jumbotron">
+			<h4> Enter password no <span id="number"></span>:</h4> <br>
 
-	<div class="timerOuterDiv">
-
-		<div class="timerDiv"><h4 id="timerDays"></h4> Days</div>
-		<div class="timerDiv"><h4 id="timerHours"></h4> Hours</div>
-		<div class="timerDiv"><h4 id="timerMinutes"></h4> Minutes</div>
-		<div class="timerDiv"><h4 id="timerSeconds"></h4> Seconds</div>
+			<input id="password" placeholder="Password likh yaha pe" type="text" name="">
+			<br>
+			<div id="hint" style="color: green"></div>
+			<div id="error" style="color: red"></div>
+			<br>
+			<button class="btn btn-success" onclick="getHint()">Get Hint</button>
+			<button class="btn btn-primary" onclick="login()">Login</button>
+		</div>
 	</div>
 
-	<div class="text-center">
-		<img style="margin-top: 50px" width="500" src="./comming.png">
-	</div>
-
-</div>
+	<button onclick="hide()">button</button>
 
 
 
-<script src="timer.js"></script>
-
+	<script src="login.js"></script>
 </body>
 </html>

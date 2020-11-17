@@ -17,6 +17,8 @@ function loadTimeAndDate()
 
 
 
+
+
 async function loadInitialData()
 {
     await loadTotalQuestions();
