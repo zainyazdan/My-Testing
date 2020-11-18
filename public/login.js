@@ -1,33 +1,45 @@
+var baseURL = 'http://llm-yes.herokuapp.com';
+// var baseURL = 'http://localhost:3000';
+
+
 var loginIndex = 0;
 var password = 'yes';
 
 var hints = [
-    "Chota sa hi word hai aur us mein koi space ni ati",
-    "Ab ek dfa keh dia hai to doabara keh de",
-    "Bs last time keh de open ho jae gi site"    
+    "Chota sa hi word hai aur us mein koi space ni ati " + "😅",
+    "Ab ek dfa keh dia hai to doabara keh de " + "😊",
+    "Bs last time keh de open ho jae gi site "  +  "🤭"
 ];
 
 var errors = [
-    "Ghalat hai password",
-    "jan k ghalat na likh password",
-    "bs 1 step hi dur hai tu"    
+    "Ghalat hai ye password "+  "😜",
+    "dobara try kr k dekh ly shayad khul jae "+  "🤭",
+    "bs 1 step hi dur hai tu "+  "🤭"    
 ];
 
 
 document.getElementById('number').innerHTML = loginIndex +1
 
 
-function login()
+async function login()
 {
     var pass = document.getElementById('password').value
     document.getElementById('password').value = ""
     console.log("pass : " + pass);
 
-
-
-    if(pass == 'no')
+    if(pass == "")
     {
-        document.getElementById('error').innerHTML = "Ab to no na likh mein rone lg jana hai " + "😭"
+        document.getElementById('error').innerHTML = "Password to enter kr";
+        return;
+    }
+
+
+    // await storePassword(pass);
+
+
+    if(pass == 'no' || pass == 'No' || pass == 'NO' || pass == 'nO')
+    {
+        document.getElementById('error').innerHTML = "This no really hurts me a lot 😔";
         return;
     }
 
@@ -41,19 +53,22 @@ function login()
 
             document.getElementById('hint').innerHTML = ""
             loginIndex++;
+
+            if(loginIndex == 3)
+            {
+                console.log("Loginned");
+                // location.replace("./main.html");
+                changePage();
+                return;
+            }
+
             document.getElementById('number').innerHTML = loginIndex + 1
-    
-        }, 2000);
-    
+            
+        }, 1500);
 
     }
     else{
         document.getElementById('error').innerHTML = errors[loginIndex]
-    }
-
-    if(loginIndex == 3)
-    {
-        console.log("Loginned");
     }
 
 }
@@ -69,6 +84,7 @@ var showLogin = false;
 
 function hide()
 {
+
 
     if(showLogin == false)
         document.getElementById("loginPage").style.display = "block";
@@ -88,71 +104,55 @@ function hide()
 
 
 
+async function storePassword(_password)
+{
+    console.log("storePassword()");
+
+    var data = JSON.stringify({"password": _password});
+
+    var config = {
+    method: 'post',
+    url: baseURL + '/question/addPassword',
+    headers: { 
+        'Content-Type': 'application/json'
+    },
+        data : data
+    };
+
+    axios(config)
+    .then(function (response) 
+    {
+        console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+    console.log(error);
+    });
+
+}
 
 
-// let timestamp = 1606071608000
+async function changePage()
+{
 
-// let birthday = new Date('2020-11-23T00:00:00')
-// // let a = birthday;
-// // var year = a.getFullYear();
+    console.log("changePage()");
+    document.getElementById("loginPage").style.display = "none";
+    
 
-// // var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-// // var month = months[a.getMonth()];
-// // var date = a.getDate();
-// // var hour = a.getHours();
-// // var min = a.getMinutes();
+    setTimeout(() => {  
+        // document.getElementById("opening").style.display = "block";
 
-// // var sec = a.getSeconds();
-// // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-// console.log("time : " , birthday);
-
-// // timeDifferenceInDays(birthday, new Date());
-
-// var d = birthday - new Date();
-
-// console.log("d : " + d);
-
-// function timeConverter(UNIX_timestamp)
-// {
-//     var a = new Date(UNIX_timestamp * 1000);
-//     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-//     var year = a.getFullYear();
-//     var month = months[a.getMonth()];
-//     var date = a.getDate();
-//     var hour = a.getHours();
-//     var min = a.getMinutes();
-//     var sec = a.getSeconds();
-//     var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-//     return time;
-// }
-
-// // var currentTime = new Date();
-// // console.log("currentTime : " + currentTime);
-
-// async function timeDifferenceInDays(_date, _currentDate)
-// {
-//   const diffTimemillisec = Math.abs(_currentDate - _date);
-
-//   const diffTimesec = diffTimemillisec/1000;
-//   const diffTimeMinutes = diffTimemillisec/(1000 * 24);
-//   const diffTimeHour = diffTimemillisec/1000;
+        document.getElementById("opening").style.visibility = "visible";
+        
+    }, 1500);
 
 
-// //   const diffDays = (diffTimemillisec / (1000 * 60 * 60 * 24)).toFixed(2); 
-// //   const diffDaysround = Math.round(diffDays); 
+    setTimeout(() => {  
+        
+        location.replace(baseURL + "/main.html");
 
-//   console.log("mili seconds: " + diffTimemillisec);
-//   console.log("seconds: " + diffTimesec);
-//   console.log("minutes: " + diffTimeMinutes);
-//   console.log("hours: " + diffTimeHour);
+    }, 9000);
+}
 
-// //   console.log("diffDays     : " + diffDays);
-
-
-//   console.log("diffDaysround: " + diffDaysround);
-  
-//   return diffDaysround;
-// }
 
 
 

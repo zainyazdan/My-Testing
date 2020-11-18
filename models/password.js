@@ -3,19 +3,20 @@ const Schema = mongoose.Schema;
 
 
 var QuestionSchema = new Schema({
+
+    password: {
+        type: String
+    },
     date: {
         type: String
     },
     time: {
-        type: [String]
-    },
-    page: {
         type: String
-    }
+    },
 });
 
 
-var QuestionModel = mongoose.model('visited', QuestionSchema);
+var QuestionModel = mongoose.model('password', QuestionSchema);
 module.exports = QuestionModel;
 
 

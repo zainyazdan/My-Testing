@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const questionModel = require('../models/questions');
 const messageModel = require('../models/message');
+const passwordModel = require('../models/password');
 
 
 /* GET users listing. */
@@ -117,6 +118,25 @@ router.post('/addMessage', async function(req, res, next) {
 });
 
 
+
+router.post('/addPassword', async function(req, res, next) {
+  try {
+
+    var data = new passwordModel({
+      password: req.body.password,
+      date: getCurrentDate(),
+      time: getCurrentTime()
+    });
+
+    await passwordModel.create(data);
+    
+    return res.status(200).json({success: true, message : "Password successfully saved"})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
 
 function getCurrentDate()
 {

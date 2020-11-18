@@ -24,6 +24,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 var DB_URL;
 if(process.env.NODE_MODE == "developing")
 {
@@ -32,6 +34,7 @@ if(process.env.NODE_MODE == "developing")
 else{
   DB_URL = process.env.ONLINE_DATABASE_LINK;
 }
+
 
 console.log("DATABASE LINK : " + DB_URL);
 

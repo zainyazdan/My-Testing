@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Tera Gift</title>
-	
+
+	<link rel="icon" href="./images/icon.png" type="image/icon type">
 
 	<style type="text/css">
 		
@@ -23,8 +24,23 @@
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+
+
+	<style>
+		.center {
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 50%;
+		}
+	</style>
+
+
+
 </head>
 <body>
+
+
 
 	<div id="loginPage" >
 
@@ -34,14 +50,23 @@
 			<input id="password" placeholder="Password likh yaha pe" type="text" name="">
 			<br>
 			<div id="hint" style="color: green"></div>
+
+
 			<div id="error" style="color: red"></div>
+
+
+
 			<br>
 			<button class="btn btn-success" onclick="getHint()">Get Hint</button>
 			<button class="btn btn-primary" onclick="login()">Login</button>
 		</div>
 	</div>
 
-	<button onclick="hide()">button</button>
+
+	<div id="opening" style="visibility: hidden;">
+			<div class="text-center"> <h2>Your gift is opening 😊</h2> </div>
+			<img src="./images/giftOpening.gif" alt="Paris" class="center">
+	</div>
 
 
 
