@@ -2,12 +2,17 @@
 var baseURL = 'http://llm-yes.herokuapp.com'
 // var baseURL = 'http://localhost:3000'
 
+var timerOn = true;
+
 
 pageLoaded();
 
 
 // Set the date we're counting down to
+
 var countDownDate = new Date("Nov 23, 2020 00:00:00").getTime();
+// var countDownDate = new Date("Nov 20, 2020 03:55:00").getTime();
+
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -29,16 +34,61 @@ var x = setInterval(function() {
   // document.getElementById("timer").innerHTML = days + "d " + hours + "h "  + minutes + "m " + seconds + "s ";
 
 
- document.getElementById("timerDays").innerHTML = days
- document.getElementById("timerHours").innerHTML = hours
- document.getElementById("timerMinutes").innerHTML = minutes
- document.getElementById("timerSeconds").innerHTML = seconds
 
   // If the count down is finished, write some text
   if (distance < 0) {
+    if(days == -1 && hours == -1 && minutes == -1 && seconds == -1)
+    {
+      document.getElementById("time").innerHTML = "Thank you for waiting for the timer 🤭";
+      loadLoginPage();
+    }
+    else{
+      timerOn = false;
+      document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
+      loadLoginPage();
+    }
+
+    // console.log("day : " + days);
+    // console.log("hours : " + hours);
+    // console.log("minutes : " + minutes);
+    // console.log("seconds : " + seconds);
+
+    
+
     clearInterval(x);
-    document.getElementById("timer").innerHTML = "EXPIRED";
   }
+  if(days == -1)
+    days = 0;
+
+  if(hours == -1)
+    hours = 0;
+
+  if(minutes == -1)
+    minutes = 0;
+
+  if(seconds == -1)
+    seconds = 0;
+
+  //////////////////////////
+
+  if(days < 0)
+    days *= -1;
+  if(hours < 0)
+    hours *= -1;
+  if(minutes < 0)
+    minutes *= -1;
+  if(seconds < 0)
+    seconds *= -1;
+
+
+    
+  document.getElementById("timerDays").innerHTML = days
+  document.getElementById("timerHours").innerHTML = hours
+  document.getElementById("timerMinutes").innerHTML = minutes
+  document.getElementById("timerSeconds").innerHTML = seconds
+
+
+
 }, 1000);
 
 
@@ -48,8 +98,7 @@ async function pageLoaded()
     var date = getCurrentDate();
     var time = getCurrentTime();
 
-    console.log("pageLoaded()");
-
+    // console.log("pageLoaded()");
 
     var data = JSON.stringify({"page":"timer","date":date,"time":time});
 
@@ -95,6 +144,17 @@ function getCurrentTime()
 
   return newTime;
 }
+
+function loadLoginPage()
+{
+  setTimeout(()=>
+  {
+    location.replace(baseURL + "/login.html");
+  }, 8000);
+
+
+}
+
 
 
 

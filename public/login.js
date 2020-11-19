@@ -13,8 +13,8 @@ var hints = [
 
 var errors = [
     "Ghalat hai ye password "+  "😜",
-    "dobara try kr k dekh ly shayad khul jae "+  "🤭",
-    "bs 1 step hi dur hai tu "+  "🤭"    
+    "dobara wohi password try kr k dekh ly shayad khul jae "+  "🤭",
+    "bs 1 step hi dur hai tu.. amj to gai hogi tu "+  "🤭"    
 ];
 
 
@@ -23,6 +23,7 @@ document.getElementById('number').innerHTML = loginIndex +1
 
 async function login()
 {
+    
     var pass = document.getElementById('password').value
     document.getElementById('password').value = ""
     console.log("pass : " + pass);
@@ -32,28 +33,35 @@ async function login()
         document.getElementById('error').innerHTML = "Password to enter kr";
         return;
     }
+    showDiv("progress");
 
 
     // await storePassword(pass);
 
 
-    if(pass == 'no' || pass == 'No' || pass == 'NO' || pass == 'nO')
-    {
-        document.getElementById('error').innerHTML = "This no really hurts me a lot 😔";
-        return;
-    }
-
 
     if(pass == password)
-    {
-        document.getElementById('hint').innerHTML = "Correct Password"
-        document.getElementById('error').innerHTML = ""
+    {      
 
         setTimeout(() => {  
+        
+            hideDiv("progress");
 
-            document.getElementById('hint').innerHTML = ""
+
+            // document.getElementById('hint').innerHTML = "Correct Password"
+            showDiv("correct");
+
+
+            document.getElementById('error').innerHTML = ""
+    
+        }, 1800);
+
+
+        setTimeout(() => {  
+            // document.getElementById('hint').innerHTML = ""
+            hideDiv("correct");
+
             loginIndex++;
-
             if(loginIndex == 3)
             {
                 console.log("Loginned");
@@ -61,14 +69,30 @@ async function login()
                 changePage();
                 return;
             }
-
             document.getElementById('number').innerHTML = loginIndex + 1
-            
-        }, 1500);
+        }, 4000);
 
     }
     else{
-        document.getElementById('error').innerHTML = errors[loginIndex]
+     
+        setTimeout(() => {  
+
+            hideDiv("progress");
+
+            if(pass == 'no' || pass == 'No' || pass == 'NO' || pass == 'nO')
+            {
+                document.getElementById('error').innerHTML = "This no really hurts me a lot 😔";
+                return;
+            }
+            document.getElementById('error').innerHTML = errors[loginIndex]
+        }, 1800);
+
+        setTimeout(() => {  
+            document.getElementById('error').innerHTML = ""
+            
+        }, 5000);
+
+
     }
 
 }
@@ -152,6 +176,22 @@ async function changePage()
 
     }, 9000);
 }
+
+
+function showDiv(id)
+{
+    document.getElementById(id).style.visibility = "visible";
+}
+
+function hideDiv(id)
+{
+    document.getElementById(id).style.visibility = "hidden";
+}
+
+
+
+
+
 
 
 

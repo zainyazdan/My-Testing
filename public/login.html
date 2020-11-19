@@ -45,11 +45,26 @@
 	<div id="loginPage" >
 
 		<div class="text-center jumbotron">
-			<h4> Enter password no <span id="number"></span>:</h4> <br>
+			<h4 style="color: #201570"> Enter password no <span id="number"></span>: 😉🤭</h4> 
+			<br>
 
 			<input id="password" placeholder="Password likh yaha pe" type="text" name="">
 			<br>
+
+			<div id="progress" style="color: #201570; visibility: hidden;">
+				Checking Password ...  
+				<img src="./images/progress.gif" height="30"> 
+			</div>
+
+
 			<div id="hint" style="color: green"></div>
+
+			<div id="correct" style="color: green;visibility: hidden;">
+				Correct Password 
+
+				<img src="./images/tick.png" height="25"> 
+				
+			</div>
 
 
 			<div id="error" style="color: red"></div>
