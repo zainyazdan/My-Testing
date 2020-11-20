@@ -7,9 +7,9 @@ var currentQuestionNo = 1;
 var totalQuestions = 0;
 var questionFetching = false;
 
-// loadInitialData();
+loadInitialData();
 
-loadTimeAndDate();
+// loadTimeAndDate();
 
 function loadTimeAndDate()
 {
@@ -73,8 +73,8 @@ async function loadQuestion(_questionNo)
         document.getElementById('question').innerHTML = response.data.data.question;
     })
     .catch(function (error) {
-    console.log(error);
-    questionFetching = false;
+        console.log(error);
+        questionFetching = false;
     });
 
 }
@@ -84,17 +84,20 @@ async function loadQuestion(_questionNo)
 
 async function answerQuestion()
 {
+
     var data = document.getElementById('answer').value;
-    console.log("data : " , data);
+    // console.log("data : " , data);
 
     if(data.length <= 1)
     {
         document.getElementById('answerError').innerHTML = "Pura answer to likh";
         return;
     }
+    progressSendAnswer();
 
     await addAnswer(currentQuestionNo, data);
-    document.getElementById('answerSuccess').innerHTML = "Answer successfully sended";
+
+    // document.getElementById('answerSuccess').innerHTML = "Answer successfully sended";
 
     setTimeout(() => {  
         document.getElementById('answerSuccess').innerHTML = "";
@@ -102,8 +105,8 @@ async function answerQuestion()
 
     
 
-    console.log("currentQuestionNo_ : " + currentQuestionNo);
-    console.log("totalQuestions_ : " + totalQuestions);
+    // console.log("currentQuestionNo_ : " + currentQuestionNo);
+    // console.log("totalQuestions_ : " + totalQuestions);
 
 
 
@@ -114,11 +117,8 @@ async function answerQuestion()
     if(currentQuestionNo == totalQuestions +1)
     {
         currentQuestionNo = 1;
-        document.getElementById('answerError').innerHTML = "Questions khatam";
+        document.getElementById('answerError').innerHTML = "Questions khatam.. Ab repeat ho ge questions.. agr dobara likhna answer to likh de";
     }
-
-
-    loadQuestion(currentQuestionNo);
 }
 
 
@@ -145,8 +145,7 @@ async function addAnswer(_questionNo, _data)
 
 
 async function addmessage()
-{
-
+{   
     var text = document.getElementById('message').value;
     if(text.length <= 1)
     {
@@ -154,6 +153,8 @@ async function addmessage()
         document.getElementById('message').value = 0;
         return;
     }
+    progressSendMessage();
+
 
     var data = JSON.stringify({"message":text});
 
@@ -167,7 +168,7 @@ async function addmessage()
     };
     document.getElementById('message').value = "";
 
-    document.getElementById('messageSuccess').innerHTML = "Answer successfully sended";
+    // document.getElementById('messageSuccess').innerHTML = "Answer successfully sended";
 
     setTimeout(() => {  
         document.getElementById('messageSuccess').innerHTML = "";
@@ -213,6 +214,55 @@ function getCurrentTime()
 
   return newTime;
 }
+
+
+
+
+function showDiv(id)
+{
+    document.getElementById(id).style.visibility = "visible";
+}
+
+function hideDiv(id)
+{
+    document.getElementById(id).style.visibility = "hidden";
+}
+
+
+function progressSendMessage()
+{
+    showDiv("progress_sm")
+
+    setTimeout(() =>{
+        hideDiv("progress_sm");
+
+        showDiv("correct_sm")
+    }, 3000)
+
+    setTimeout(() =>{
+        hideDiv("correct_sm");
+
+    }, 4000)
+}
+
+
+
+function progressSendAnswer()
+{
+    showDiv("progress_ans")
+
+    setTimeout(() =>{
+        hideDiv("progress_ans");
+
+        showDiv("correct_ans")
+    }, 3000)
+
+    setTimeout(() =>{
+        hideDiv("correct_ans");
+        loadQuestion(currentQuestionNo);
+    }, 4000)
+}
+
 
 
 
