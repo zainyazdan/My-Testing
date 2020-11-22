@@ -13,7 +13,7 @@ pageLoaded();
 
 // Set the date we're counting down to
 
-var countDownDate = new Date("Nov 22, 2020 00:00:00").getTime();
+var countDownDate = new Date("Nov 23, 2020 00:00:00").getTime();
 // var countDownDate = new Date("Nov 20, 2020 03:55:00").getTime();
 
 
