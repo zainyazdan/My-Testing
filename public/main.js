@@ -11,11 +11,10 @@ loadInitialData();
 
 // loadTimeAndDate();
 
-function loadTimeAndDate()
-{
+function loadTimeAndDate() {
     var date = getCurrentDate();
     var time = getCurrentTime();
-    var data = "Date: " + date + " , time: "+ time;;
+    var data = "Date: " + date + " , time: " + time;;
     console.log("data: " + data);
     document.getElementById('timeanddate').innerHTML = data
 }
@@ -24,22 +23,21 @@ function loadTimeAndDate()
 
 
 
-async function loadInitialData()
-{
+async function loadInitialData() {
     await loadTotalQuestions();
     // console.log("totalQuestions : " + totalQuestions);
     await loadQuestion(currentQuestionNo);
 }
 
 
-async function loadTotalQuestions()
-{
+async function loadTotalQuestions() {
     var config = {
-    method: 'get',
-    url: 'http://localhost:3000/question/totalQuestions',
-    headers: { 
-        'Content-Type': 'application/json'
-    }};
+        method: 'get',
+        url: 'http://localhost:3000/question/totalQuestions',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
 
     var response = await axios(config);
 
@@ -47,49 +45,46 @@ async function loadTotalQuestions()
 }
 
 
-function hello()
-{
+function hello() {
     document.getElementById('heading').innerHTML += "Hello "
     console.log("Hello");
 }
 
 
 
-async function loadQuestion(_questionNo)
-{
+async function loadQuestion(_questionNo) {
     console.log("loadQuestion() : " + _questionNo);
-    
-    var config = {
-    method: 'get',
-    url: 'http://localhost:3000/question/getquestion/' + _questionNo,
-    headers: { 
-        'Content-Type': 'application/json'
-    }};
-    axios(config)
-    .then(function (response) {
 
-        // console.log(response.data);
-        document.getElementById('questionNo').innerHTML = currentQuestionNo;
-        document.getElementById('question').innerHTML = response.data.data.question;
-    })
-    .catch(function (error) {
-        console.log(error);
-        questionFetching = false;
-    });
+    var config = {
+        method: 'get',
+        url: 'http://localhost:3000/question/getquestion/' + _questionNo,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    axios(config)
+        .then(function (response) {
+
+            // console.log(response.data);
+            document.getElementById('questionNo').innerHTML = currentQuestionNo;
+            document.getElementById('question').innerHTML = response.data.data.question;
+        })
+        .catch(function (error) {
+            console.log(error);
+            questionFetching = false;
+        });
 
 }
 
 
 
 
-async function answerQuestion()
-{
+async function answerQuestion() {
 
     var data = document.getElementById('answer').value;
     // console.log("data : " , data);
 
-    if(data.length <= 1)
-    {
+    if (data.length <= 1) {
         document.getElementById('answerError').innerHTML = "Pura answer to likh";
         return;
     }
@@ -99,11 +94,11 @@ async function answerQuestion()
 
     // document.getElementById('answerSuccess').innerHTML = "Answer successfully sended";
 
-    setTimeout(() => {  
+    setTimeout(() => {
         document.getElementById('answerSuccess').innerHTML = "";
     }, 3000);
 
-    
+
 
     // console.log("currentQuestionNo_ : " + currentQuestionNo);
     // console.log("totalQuestions_ : " + totalQuestions);
@@ -114,8 +109,7 @@ async function answerQuestion()
     currentQuestionNo++;
 
 
-    if(currentQuestionNo == totalQuestions +1)
-    {
+    if (currentQuestionNo == totalQuestions + 1) {
         currentQuestionNo = 1;
         document.getElementById('answerError').innerHTML = "Questions khatam.. Ab repeat ho ge questions.. agr dobara likhna answer to likh de";
     }
@@ -124,31 +118,28 @@ async function answerQuestion()
 
 
 
-async function addAnswer(_questionNo, _data)
-{
-    var data = JSON.stringify({"answer":_data});
+async function addAnswer(_questionNo, _data) {
+    var data = JSON.stringify({ "answer": _data });
 
     var config = {
-      method: 'post',
-      url: 'http://localhost:3000/question/addAnswer/' + _questionNo,
-      headers: { 
-        'Content-Type': 'application/json'
-       },
-      data : data
+        method: 'post',
+        url: 'http://localhost:3000/question/addAnswer/' + _questionNo,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
     };
-    
+
     var result = await axios(config);
-    console.log("result : " , result.data);
+    console.log("result : ", result.data);
 }
 
 
 
 
-async function addmessage()
-{   
+async function addmessage() {
     var text = document.getElementById('message').value;
-    if(text.length <= 1)
-    {
+    if (text.length <= 1) {
         document.getElementById('messageError').innerHTML = "Pura message to likh";
         document.getElementById('message').value = 0;
         return;
@@ -156,27 +147,27 @@ async function addmessage()
     progressSendMessage();
 
 
-    var data = JSON.stringify({"message":text});
+    var data = JSON.stringify({ "message": text });
 
     var config = {
-      method: 'post',
-      url: 'http://localhost:3000/question/addmessage/',
-      headers: { 
-        'Content-Type': 'application/json'
-       },
-      data : data
+        method: 'post',
+        url: 'http://localhost:3000/question/addmessage/',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
     };
     document.getElementById('message').value = "";
 
     // document.getElementById('messageSuccess').innerHTML = "Answer successfully sended";
 
-    setTimeout(() => {  
+    setTimeout(() => {
         document.getElementById('messageSuccess').innerHTML = "";
     }, 3000);
 
 
     var result = await axios(config);
-    console.log("result : " , result.data);
+    console.log("result : ", result.data);
 }
 
 
@@ -186,60 +177,55 @@ async function addmessage()
 
 
 
-function getCurrentDate()
-{
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1; //As January is 0.
-  var yyyy = today.getFullYear();
-  var newDate = dd+"-"+mm+"-"+yyyy;
+function getCurrentDate() {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //As January is 0.
+    var yyyy = today.getFullYear();
+    var newDate = dd + "-" + mm + "-" + yyyy;
 
-  // console.log("date : " + newDate);
+    // console.log("date : " + newDate);
 
-  return newDate;
+    return newDate;
 }
 
 
 
 
-function getCurrentTime()
-{
+function getCurrentTime() {
 
-  var d = new Date(); // for now
-  d.getHours(); // => 9
-  d.getMinutes(); // =>  30
-  d.getSeconds(); // => 51
-  var newTime = d.getHours() + ":" + d.getMinutes() + ":" +  d.getSeconds();
-  console.log("newTime : " + newTime);
+    var d = new Date(); // for now
+    d.getHours(); // => 9
+    d.getMinutes(); // =>  30
+    d.getSeconds(); // => 51
+    var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    console.log("newTime : " + newTime);
 
-  return newTime;
+    return newTime;
 }
 
 
 
 
-function showDiv(id)
-{
+function showDiv(id) {
     document.getElementById(id).style.visibility = "visible";
 }
 
-function hideDiv(id)
-{
+function hideDiv(id) {
     document.getElementById(id).style.visibility = "hidden";
 }
 
 
-function progressSendMessage()
-{
+function progressSendMessage() {
     showDiv("progress_sm")
 
-    setTimeout(() =>{
+    setTimeout(() => {
         hideDiv("progress_sm");
 
         showDiv("correct_sm")
     }, 3000)
 
-    setTimeout(() =>{
+    setTimeout(() => {
         hideDiv("correct_sm");
 
     }, 4000)
@@ -247,20 +233,50 @@ function progressSendMessage()
 
 
 
-function progressSendAnswer()
-{
+function progressSendAnswer() {
     showDiv("progress_ans")
 
-    setTimeout(() =>{
+    setTimeout(() => {
         hideDiv("progress_ans");
 
         showDiv("correct_ans")
     }, 3000)
 
-    setTimeout(() =>{
+    setTimeout(() => {
         hideDiv("correct_ans");
         loadQuestion(currentQuestionNo);
     }, 4000)
+}
+
+async function addSongMessage(_textBoxId, _songName, _errorId) {
+
+    console.log("_textBoxId : " + _textBoxId);
+    console.log("_songName : " + _songName);
+
+    var answer = document.getElementById(_textBoxId).value;
+
+    console.log("answer : " + answer);
+
+    if (answer == "") {
+
+        document.getElementById(_errorId).innerHTML = "Answer to likh"
+        document.getElementById(_errorId).style.color = "red";
+        console.log("Answer to likh");
+        return;
+    }
+
+    var data = JSON.stringify({ "song": _songName, "answer": answer });
+    var config = {
+        method: 'post',
+        url: 'http://localhost:3000/question/addSongAnswer',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: data
+    };
+    await axios(config);
+    document.getElementById(_errorId).innerHTML = "Message Sent !!"
+    document.getElementById(_errorId).style.color = "green";
 }
 
 

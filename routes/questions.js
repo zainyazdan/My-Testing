@@ -3,6 +3,7 @@ var router = express.Router();
 const questionModel = require('../models/questions');
 const messageModel = require('../models/message');
 const passwordModel = require('../models/password');
+const songsModel = require('../models/songs');
 
 
 /* GET users listing. */
@@ -137,6 +138,43 @@ router.post('/addPassword', async function(req, res, next) {
     res.status(500).send('Internal server error : ' + error)
   }
 });
+
+
+
+
+router.post('/addSongAnswer', async function(req, res, next) {
+  try {
+    
+    var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
+    var result = await songsModel.findOne({songName: req.body.song})
+
+    if(result)
+    {
+      result.answer.push(answer);
+      await result.save();
+      return res.status(200).json({success: true, message : "Answer successfully added"})
+    }
+    
+    var a = new songsModel({
+      songName: req.body.song,
+      answer: answer
+    });
+
+    await songsModel.create(a);
+    
+    return res.status(200).json({success: true, message : "New Song Answer successfully created"})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
+
+
+
 
 function getCurrentDate()
 {
