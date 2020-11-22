@@ -1,7 +1,7 @@
 var baseURL = 'http://llm-yes.herokuapp.com';
 // var baseURL = 'http://localhost:3000';
 
-
+pageLoaded()
 
 var currentQuestionNo = 1;
 var totalQuestions = 0;
@@ -27,6 +27,8 @@ async function loadInitialData() {
     await loadTotalQuestions();
     // console.log("totalQuestions : " + totalQuestions);
     await loadQuestion(currentQuestionNo);
+
+
 }
 
 
@@ -65,9 +67,15 @@ async function loadQuestion(_questionNo) {
     axios(config)
         .then(function (response) {
 
-            // console.log(response.data);
             document.getElementById('questionNo').innerHTML = currentQuestionNo;
+            if(response.data.data.answer.length > 0)
+            {
+                loadNextButton();
+            }
+
+            // console.log(response.data);
             document.getElementById('question').innerHTML = response.data.data.question;
+
         })
         .catch(function (error) {
             console.log(error);
@@ -79,7 +87,8 @@ async function loadQuestion(_questionNo) {
 
 
 
-async function answerQuestion() {
+async function answerQuestion(choice) {
+
 
     var data = document.getElementById('answer').value;
     // console.log("data : " , data);
@@ -97,7 +106,6 @@ async function answerQuestion() {
     setTimeout(() => {
         document.getElementById('answerSuccess').innerHTML = "";
     }, 3000);
-
 
 
     // console.log("currentQuestionNo_ : " + currentQuestionNo);
@@ -277,9 +285,113 @@ async function addSongMessage(_textBoxId, _songName, _errorId) {
     await axios(config);
     document.getElementById(_errorId).innerHTML = "Message Sent !!"
     document.getElementById(_errorId).style.color = "green";
+    document.getElementById(_textBoxId).value = ""
 }
 
 
+async function pageLoaded()
+{
+    var date = getCurrentDate();
+    var time = getCurrentTime();
+
+    // console.log("pageLoaded()");
+
+    var data = JSON.stringify({"page":"Gift page","date":date,"time":time});
+
+    var config = {
+    method: 'post',
+    url: baseURL + '/visited',
+    headers: { 
+        'Content-Type': 'application/json'},
+    data : data
+    };
+
+    var result =  await axios(config);
+    console.log("result : " , result);
+}
+
+
+function getCurrentDate()
+{
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //As January is 0.
+  var yyyy = today.getFullYear();
+  var newDate = dd+"-"+mm+"-"+yyyy;
+
+  // console.log("date : " + newDate);
+
+  return newDate;
+}
+
+
+
+
+function getCurrentTime()
+{
+
+  var d = new Date(); // for now
+  d.getHours(); // => 9
+  d.getMinutes(); // =>  30
+  d.getSeconds(); // => 51
+  var newTime = d.getHours() + ":" + d.getMinutes() + ":" +  d.getSeconds();
+//   console.log("newTime : " + newTime);
+
+  return newTime;
+}
+
+
+async function skipQuestion()
+{
+    console.log("skipped");
+    currentQuestionNo++;
+    console.log("skipQuestion() currentQuestionNo : "+ currentQuestionNo);
+
+    
+    document.getElementById('answer').value = "";
+
+    if (currentQuestionNo == totalQuestions + 1) {
+        currentQuestionNo = 1;
+        document.getElementById('answerError').innerHTML = "Questions khatam.. Ab repeat ho ge questions.. agr dobara likhna answer to likh de";
+    }
+    await loadQuestion(currentQuestionNo);
+
+    document.getElementById('answerError').innerHTML = ""
+    HideNextButton();
+}
+
+
+
+
+
+
+
+function loadNextButton()
+{
+    showDiv("skipQuestionText");
+    showDiv("skipQuestionButton");
+}
+
+function HideNextButton()
+{
+    hideDiv("skipQuestionText");
+    hideDiv("skipQuestionButton");
+}
+
+
+
+
+
+
+function showDiv(id)
+{
+    document.getElementById(id).style.visibility = "visible";
+}
+
+function hideDiv(id)
+{
+    document.getElementById(id).style.visibility = "hidden";
+}
 
 
 

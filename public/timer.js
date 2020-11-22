@@ -4,13 +4,16 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 
 var timerOn = true;
 
+var toadExtra = false;
+
 
 pageLoaded();
 
 
+
 // Set the date we're counting down to
 
-var countDownDate = new Date("Nov 23, 2020 00:00:00").getTime();
+var countDownDate = new Date("Nov 22, 2020 00:00:00").getTime();
 // var countDownDate = new Date("Nov 20, 2020 03:55:00").getTime();
 
 
@@ -40,11 +43,13 @@ var x = setInterval(function() {
     if(days == -1 && hours == -1 && minutes == -1 && seconds == -1)
     {
       document.getElementById("time").innerHTML = "Thank you for waiting for the timer 🤭";
+      
       loadLoginPage();
     }
     else{
       timerOn = false;
       document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
+      document.getElementById("extra").innerHTML = ""
       loadLoginPage();
     }
 
@@ -52,11 +57,15 @@ var x = setInterval(function() {
     // console.log("hours : " + hours);
     // console.log("minutes : " + minutes);
     // console.log("seconds : " + seconds);
-
-    
-
     clearInterval(x);
   }
+  else if(toadExtra == false)
+  {
+    toadExtra = true;
+    document.getElementById("extra").innerHTML = "Thora sa to ab wait kr le ab... itni bhi jaldi kya hai 😊...  mujhe bhi isi trha wait hai tere answers ka 😅... jb khulla time hoga tb is ko open kri... Aur mera message parhte hue apni hassi control kri 🤭... jaise abhi control kr rhi hai 😂"
+
+  }
+
   if(days == -1)
     days = 0;
 
@@ -144,6 +153,13 @@ function getCurrentTime()
 
   return newTime;
 }
+
+
+
+
+
+
+
 
 function loadLoginPage()
 {

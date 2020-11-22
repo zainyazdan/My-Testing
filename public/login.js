@@ -1,6 +1,8 @@
 var baseURL = 'http://llm-yes.herokuapp.com';
 // var baseURL = 'http://localhost:3000';
 
+pageLoaded();
+
 
 var loginIndex = 0;
 var password = 'yes';
@@ -14,7 +16,7 @@ var hints = [
 var errors = [
     "Ghalat hai ye password "+  "😜",
     "dobara wohi password try kr k dekh ly shayad khul jae "+  "🤭",
-    "bs 1 step hi dur hai tu.. amj to gai hogi tu "+  "🤭"    
+    "bs 1 step hi dur hai tu.. Samj to gai hogi tu "+  "🤭"    
 ];
 
 
@@ -36,9 +38,7 @@ async function login()
     showDiv("progress");
 
 
-    // await storePassword(pass);
-
-
+    await storePassword(pass);
 
     if(pass == password)
     {      
@@ -186,5 +186,58 @@ function showDiv(id)
 function hideDiv(id)
 {
     document.getElementById(id).style.visibility = "hidden";
+}
+
+
+
+async function pageLoaded()
+{
+    var date = getCurrentDate();
+    var time = getCurrentTime();
+
+    // console.log("pageLoaded()");
+
+    var data = JSON.stringify({"page":"login page","date":date,"time":time});
+
+    var config = {
+    method: 'post',
+    url: baseURL + '/visited',
+    headers: { 
+        'Content-Type': 'application/json'},
+    data : data
+    };
+
+    var result =  await axios(config);
+    console.log("result : " , result);
+}
+
+
+function getCurrentDate()
+{
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //As January is 0.
+  var yyyy = today.getFullYear();
+  var newDate = dd+"-"+mm+"-"+yyyy;
+
+  // console.log("date : " + newDate);
+
+  return newDate;
+}
+
+
+
+
+function getCurrentTime()
+{
+
+  var d = new Date(); // for now
+  d.getHours(); // => 9
+  d.getMinutes(); // =>  30
+  d.getSeconds(); // => 51
+  var newTime = d.getHours() + ":" + d.getMinutes() + ":" +  d.getSeconds();
+  console.log("newTime : " + newTime);
+
+  return newTime;
 }
 
