@@ -3,7 +3,6 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 // var baseURL = 'http://localhost:3000'
 
 var timerOn = true;
-
 var toadExtra = false;
 
 document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
@@ -165,16 +164,15 @@ function getCurrentTime()
 
 
 
+loadLoginPage()
 
-
-function loadLoginPage()
+async function loadLoginPage()
 {
+  console.log("loading login page");
   setTimeout(()=>
   {
     location.replace(baseURL + "/login.html");
   }, 8000);
-
-
 }
 
 
