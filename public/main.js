@@ -40,7 +40,7 @@ async function loadInitialData() {
 async function loadTotalQuestions() {
     var config = {
         method: 'get',
-        url: 'http://localhost:3000/question/totalQuestions',
+        url: baseURL+'/question/totalQuestions',
         headers: {
             'Content-Type': 'application/json'
         }
