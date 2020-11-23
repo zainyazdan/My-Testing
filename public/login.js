@@ -84,6 +84,18 @@ async function login()
                 document.getElementById('error').innerHTML = "This no really hurts me a lot 😔";
                 return;
             }
+            else if(pass == 'Llm' || pass == 'llm')
+            {
+                document.getElementById('error').innerHTML = "Btane ki zaroorat ni ye to mujhe pehle se hi pta hai 🤭";
+                return;
+            }
+            else if(pass == 'Masp' || pass == 'masp')
+            {
+                document.getElementById('error').innerHTML = "Han to dede na 🤭";
+                return;
+            }
+
+
             document.getElementById('error').innerHTML = errors[loginIndex]
         }, 1800);
 

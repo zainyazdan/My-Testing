@@ -64,7 +64,7 @@ async function loadQuestion(_questionNo) {
 
     var config = {
         method: 'get',
-        url: 'http://localhost:3000/question/getquestion/' + _questionNo,
+        url: baseURL+'/question/getquestion/' + _questionNo,
         headers: {
             'Content-Type': 'application/json'
         }
@@ -136,7 +136,7 @@ async function addAnswer(_questionNo, _data) {
 
     var config = {
         method: 'post',
-        url: 'http://localhost:3000/question/addAnswer/' + _questionNo,
+        url: baseURL + '/question/addAnswer/' + _questionNo,
         headers: {
             'Content-Type': 'application/json'
         },
@@ -164,7 +164,7 @@ async function addmessage() {
 
     var config = {
         method: 'post',
-        url: 'http://localhost:3000/question/addmessage/',
+        url: baseURL + '/question/addmessage/',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -281,7 +281,7 @@ async function addSongMessage(_textBoxId, _songName, _errorId) {
     var data = JSON.stringify({ "song": _songName, "answer": answer });
     var config = {
         method: 'post',
-        url: 'http://localhost:3000/question/addSongAnswer',
+        url: baseURL + '/question/addSongAnswer',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -407,7 +407,7 @@ async function audioPlayed(_songName)
     var data = JSON.stringify({"song":_songName});
     var config = {
       method: 'post',
-      url: 'http://localhost:3000/question/songPlayed',
+      url: baseURL + '/question/songPlayed',
       headers: { 
         'Content-Type': 'application/json'},
       data : data
@@ -423,7 +423,7 @@ async function audioEnded(_songName)
     var data = JSON.stringify({"song":_songName});
     var config = {
       method: 'post',
-      url: 'http://localhost:3000/question/songCompleted',
+      url: baseURL + '/question/songCompleted',
       headers: { 
         'Content-Type': 'application/json'},
       data : data
