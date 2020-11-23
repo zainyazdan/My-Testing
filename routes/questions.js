@@ -4,6 +4,7 @@ const questionModel = require('../models/questions');
 const messageModel = require('../models/message');
 const passwordModel = require('../models/password');
 const songsModel = require('../models/songs');
+const completelyListened = require('../models/completelyListened');
 
 
 /* GET users listing. */
@@ -174,6 +175,72 @@ router.post('/addSongAnswer', async function(req, res, next) {
 
 
 
+router.post('/songCompleted', async function(req, res, next) {
+  try {
+    
+
+    // var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
+    var result = await completelyListened.findOne({date: getCurrentDate(), songName: req.body.song})
+
+    if(result)
+    {
+      result.timeCompeltely.push(getCurrentTime());
+      result.noOfTimesComplete++;
+      await result.save();
+      return res.status(200).json({success: true, message : "Song completely listened successfully added"})
+    }
+    
+    var a = new completelyListened({
+      songName: req.body.song,
+      noOfTimesComplete: 1,
+      date: getCurrentDate(),
+      timeCompeltely: getCurrentTime(),
+      duration: req.body.duration
+    });
+
+    await completelyListened.create(a);
+    return res.status(200).json({success: true, message : "New completely listened successfully created"})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
+
+router.post('/songPlayed', async function(req, res, next) {
+  try {
+    
+
+    // var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
+    var result = await completelyListened.findOne({date: getCurrentDate(), songName: req.body.song})
+
+    if(result)
+    {
+      result.timePlayed.push(getCurrentTime());
+      result.noOfTimesPlayed++;
+      await result.save();
+      return res.status(200).json({success: true, message : "Song completely listened successfully added"})
+    }
+    
+    var a = new completelyListened({
+      songName: req.body.song,
+      noOfTimesPlayed: 1,
+      date: getCurrentDate(),
+      timePlayed: getCurrentTime(),
+      duration: req.body.duration
+    });
+
+    await completelyListened.create(a);
+    return res.status(200).json({success: true, message : "New completely listened successfully created"})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
 
 
 function getCurrentDate()

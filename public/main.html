@@ -41,6 +41,12 @@
 
 	<div style="padding: 20px">
 		
+		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/hb14-1.gif" ></div>
+
+		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/hb14-2.gif" ></div>
+		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/hb14.gif" ></div>
+
+
 		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/gif.gif" ></div>
 
 		<div class="text-center"><img style="width: 100%" class="img-fluid" src="./images/farheen.gif"></div>
@@ -145,7 +151,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 1 </h6>
 				<p style="color: green">Ye mein jo kuch kaha wo... </p>
-				<audio controls><source src="./songs/1. sach keh rha.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('1. sach keh rha teri kasam')" onplay="audioPlayed('1. sach keh rha teri kasam')" controls><source src="./songs/1. sach keh rha.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song1" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song1_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song1', '1. sach keh rha teri kasam', 'song1_error')">Send Message</button>
@@ -155,7 +161,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 2 </h6>
 				<p style="color: green">Mere pas pillow acha ni hai.. mujhe ek naram se pillow ki zaroorat hai 🤭</p>
-				<audio controls><source src="./songs/2. khud ko mujhe.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('2. khud ko mujhe tu sonp de')" onplay="audioPlayed('2. khud ko mujhe tu sonp de')"  controls><source src="./songs/2. khud ko mujhe.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song2" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song2_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song2', '2. khud ko mujhe tu sonp de', 'song2_error')">Send Message</button>
@@ -164,7 +170,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 3 </h6>
 				<p style="color: green">Yes k liye mujhe .. 😭</p>
-				<audio controls><source src="./songs/3. na tarpa.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('3. na tarpa, ker de tu han')" onplay="audioPlayed('3. na tarpa, ker de tu han')" controls><source src="./songs/3. na tarpa.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song3" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song3_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song3', '3. na tarpa, ker de tu han', 'song3_error')">Send Message</button>
@@ -174,7 +180,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 4</h6>
 				<p style="color: green">🤭</p>
-				<audio controls><source src="./songs/4 Sharma gai.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('4. Sharma gai')" onplay="audioPlayed('4. Sharma gai')" controls><source src="./songs/4 Sharma gai.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song4" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song4_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song4', '4. Sharma gai', 'song4_error')">Send Message</button>
@@ -183,7 +189,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 5</h6>
 				<p style="color: green">Is gift k bare mein 😅</p>
-				<audio controls><source src="./songs/5. Kri na ae gal kisi naal.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('5. Kri na ae gal kisi naal')" onplay="audioPlayed('5. Kri na ae gal kisi naal')" controls><source src="./songs/5. Kri na ae gal kisi naal.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song5" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song5_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song5', '5. Kri na ae gal kisi naal', 'song5_error')">Send Message</button>
@@ -193,7 +199,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 6</h6>
 				<p style="color: green">Please !!</p>
-				<audio controls><source src="./songs/6. bol do na zra.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('6. bol do na zra')" onplay="audioPlayed('6. bol do na zra')" controls><source src="./songs/6. bol do na zra.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song6" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song6_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song6', '6. bol do na zra', 'song6_error')">Send Message</button>
@@ -203,7 +209,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 7</h6>
 				<p style="color: green">bura bhi ni lgta acha bhi ni.. ye kya dhandli hai 😭</p>
-				<audio controls><source src="./songs/7. ni ti han vi ni krdi gabru.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('7. ni ti han vi ni krdi gabru')" onplay="audioPlayed('7. ni ti han vi ni krdi gabru')" controls><source src="./songs/7. ni ti han vi ni krdi gabru.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song7" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song7_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song7', '7. ni ti han vi ni krdi gabru', 'song7_error')">Send Message</button>
@@ -213,7 +219,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 8</h6>
 				<p style="color: green">is mein dil rakhne ka matlb hai k yes bol k hi mera maan rakh le...</p>
-				<audio controls><source src="./songs/8. tum hi ab kuch kaho.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('8. tum hi ab kuch kaho')" onplay="audioPlayed('8. tum hi ab kuch kaho')" controls><source src="./songs/8. tum hi ab kuch kaho.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song8" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song8_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song8', '8. tum hi ab kuch kaho', 'song8_error')">Send Message</button>
@@ -222,7 +228,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 9</h6>
 				<p style="color: green">Ye jwab na dei k jaan chuti meri 😒</p>
-				<audio controls><source src="./songs/9. gham to nhi hai.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('9. gham to nhi hai')" onplay="audioPlayed('9. gham to nhi hai')" controls><source src="./songs/9. gham to nhi hai.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song9" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song9_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song9', '9. gham to nhi hai', 'song9_error')">Send Message</button>
@@ -231,7 +237,7 @@
 
 			<div style="margin-bottom: 20px">	<h6>Audio 10</h6>
 				<p style="color: green">Mujhe pta hai k NP, NT aur NP wali boton aur harkaton ki wja se tu kehti hai lekin wakai ... </p>
-				<audio controls><source src="./songs/10. shareef hu mein.m4a" type="audio/ogg"></audio>
+				<audio onended="audioEnded('10. shareef hu mein')" onplay="audioPlayed('10. shareef hu mein')" controls><source src="./songs/10. shareef hu mein.m4a" type="audio/ogg"></audio>
 				<textarea placeholder=" Yaha likh apna message"  id="song10" name="" rows="2" cols="50" ></textarea>	
 				<div style="color: red" id="song10_error"></div>
 				<button class="btn btn-success" onclick="addSongMessage('song10', '10. shareef hu mein', 'song10_error')">Send Message</button>

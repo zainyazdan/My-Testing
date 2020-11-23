@@ -6,6 +6,7 @@ var timerOn = true;
 
 var toadExtra = false;
 
+document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
 
 pageLoaded();
 
@@ -13,15 +14,20 @@ pageLoaded();
 
 // Set the date we're counting down to
 
-var countDownDate = new Date("Nov 23, 2020 00:00:00").getTime();
+// var countDownDate = new Date("Nov 23, 2020 00:00:00").getTime();
+var countDownDate = new Date().getTime();
+
 // var countDownDate = new Date("Nov 20, 2020 03:55:00").getTime();
 
 
 // Update the count down every 1 second
 var x = setInterval(function() {
 
+
   // Get today's date and time
-  var now = new Date().getTime();
+  // var now = new Date().getTime();
+  var now = new Date("Nov 23, 2020 00:00:00").getTime();
+
 
   // Find the distance between now and the count down date
   var distance = countDownDate - now;
@@ -62,7 +68,7 @@ var x = setInterval(function() {
   else if(toadExtra == false)
   {
     toadExtra = true;
-    document.getElementById("extra").innerHTML = "Thora sa to ab wait kr le ab... itni bhi jaldi kya hai 😊...  mujhe bhi isi trha wait hai tere answers ka 😅... jb khulla time hoga tb is ko open kri... Aur mera message parhte hue apni hassi control kri 🤭... jaise abhi control kr rhi hai 😂"
+    // document.getElementById("extra").innerHTML = "Thora sa to ab wait kr le ab... itni bhi jaldi kya hai 😊...  mujhe bhi isi trha wait hai tere answers ka 😅... jb khulla time hoga tb is ko open kri... Aur mera message parhte hue apni hassi control kri 🤭... jaise abhi control kr rhi hai 😂"
 
   }
 

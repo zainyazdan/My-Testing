@@ -7,9 +7,14 @@ var currentQuestionNo = 1;
 var totalQuestions = 0;
 var questionFetching = false;
 
+
+
 loadInitialData();
 
+
+
 // loadTimeAndDate();
+
 
 function loadTimeAndDate() {
     var date = getCurrentDate();
@@ -395,6 +400,34 @@ function hideDiv(id)
 
 
 
+async function audioPlayed(_songName)
+{
+    console.log("Song Played : " + _songName);
+
+    var data = JSON.stringify({"song":_songName});
+    var config = {
+      method: 'post',
+      url: 'http://localhost:3000/question/songPlayed',
+      headers: { 
+        'Content-Type': 'application/json'},
+      data : data
+    };
+
+    await axios(config);
+}
 
 
-
+async function audioEnded(_songName)
+{
+    console.log("Song Ended : " + _songName);
+    var data = JSON.stringify({"song":_songName});
+    var config = {
+      method: 'post',
+      url: 'http://localhost:3000/question/songCompleted',
+      headers: { 
+        'Content-Type': 'application/json'},
+      data : data
+    };
+    
+    await axios(config);
+}
