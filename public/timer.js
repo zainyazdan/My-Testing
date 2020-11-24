@@ -6,7 +6,7 @@ var timerOn = true;
 var toadExtra = false;
 
 
-document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
+document.getElementById("time").innerHTML = "Tu Birthday Gift unlock hue inti dair ho gai hai 🤭";
 
 pageLoaded();
 
