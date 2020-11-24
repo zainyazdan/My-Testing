@@ -12,12 +12,10 @@ var QuestionSchema = new Schema({
     answer: {
         type: [String]
     },
-    // date: {
-    //     type: [String]
-    // },
-    // time: {
-    //     type: [String]
-    // },
+    answersCount: {
+        type: Number,
+        default: 0
+    }
 });
 
 

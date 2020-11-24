@@ -7,6 +7,7 @@ var toadExtra = false;
 
 
 document.getElementById("time").innerHTML = "Tu itna time late ho gai hai 🤭";
+
 pageLoaded();
 
 
@@ -181,35 +182,33 @@ async function loadLoginPage()
 
 
 
-document.getElementById('time1').innerHTML = "Browser date: "+getCurrentDate() +" , time: " + getCurrentTime();
+// document.getElementById('time1').innerHTML = "Browser date: "+getCurrentDate() +" , time: " + getCurrentTime();
+// loadTimeFromServer()
 
-
-loadTimeFromServer()
-
-async function loadTimeFromServer()
-{
-  var config = {
-    method: 'get',
-    url: baseURL + '/question/getTimeAndDate',
-    headers: { 
-      'Content-Type': 'application/json',}
-  };
+// async function loadTimeFromServer()
+// {
+//   var config = {
+//     method: 'get',
+//     url: baseURL + '/question/getTimeAndDate',
+//     headers: { 
+//       'Content-Type': 'application/json',}
+//   };
   
-  axios(config)
-  .then(function (response) {
+//   axios(config)
+//   .then(function (response) {
 
-    // console.log(JSON.stringify(response.data));
-    var date = response.data.date;
-    var time = response.data.time;
+//     // console.log(JSON.stringify(response.data));
+//     var date = response.data.date;
+//     var time = response.data.time;
 
-    console.log("date: " + date);
-    console.log("time: " + time);
+//     console.log("date: " + date);
+//     console.log("time: " + time);
 
-    document.getElementById('time2').innerHTML = "server date: "+ date +" , time: " + time;
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+//     document.getElementById('time2').innerHTML = "server date: "+ date +" , time: " + time;
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
   
   
 }

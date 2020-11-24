@@ -8,9 +8,7 @@ var totalQuestions = 0;
 var questionFetching = false;
 
 
-
 loadInitialData();
-
 
 
 // loadTimeAndDate();
@@ -105,6 +103,9 @@ async function answerQuestion(choice) {
     progressSendAnswer();
 
     await addAnswer(currentQuestionNo, data);
+    await loadTotalQuestions();
+
+    console.log("TOTAL QUESTION LOADED : " + totalQuestions);
 
     // document.getElementById('answerSuccess').innerHTML = "Answer successfully sended";
 

@@ -58,8 +58,10 @@ router.get('/getQuestion/:id', async function(req, res, next) {
 router.post('/addQuestion', async function(req, res, next) {
   try {
 
+    var questions = await questionModel.find({});
+
     var data = new questionModel({
-      id: req.body.id,
+      id: questions.length + 1,
       question: req.body.question,
     });
 
@@ -86,6 +88,8 @@ router.post('/addanswer/:id', async function(req, res, next) {
     // console.log("result : " , result);
 
     result.answer.push(answer);
+
+    result.answersCount = result.answer.length;
 
     await result.save();
     
@@ -139,7 +143,6 @@ router.post('/addPassword', async function(req, res, next) {
     var data = new passwordModel({
       password: req.body.password+" ["+getCurrentTime()+"]",
       date: getCurrentDate()
-      // time: getCurrentTime()
     });
 
     await passwordModel.create(data);
@@ -164,6 +167,8 @@ router.post('/addSongAnswer', async function(req, res, next) {
     if(result)
     {
       result.answer.push(answer);
+
+      result.count = result.answer.length;
       await result.save();
       return res.status(200).json({success: true, message : "Answer successfully added"})
     }
