@@ -23,10 +23,10 @@ router.post('/visited', async function(req, res, next) {
   if(result)
   {
     result.time.push(req.body.time);
+    result.count++;
     await (await result).save();
     return res.status(200).json({success: true, message : "Time saved aginst date"})
   }
-
 
   var data = new visitedModel({
     date: req.body.date,

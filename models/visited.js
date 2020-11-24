@@ -11,6 +11,10 @@ var QuestionSchema = new Schema({
     },
     page: {
         type: String
+    },
+    count: {
+        type: Number,
+        default: 1
     }
 });
 

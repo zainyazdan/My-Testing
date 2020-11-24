@@ -124,15 +124,27 @@ router.post('/addMessage', async function(req, res, next) {
 router.post('/addPassword', async function(req, res, next) {
   try {
 
+    var result = await passwordModel.findOne({date: getCurrentDate()});
+
+    if(result)
+    {
+      result.password.push(req.body.password+" ["+getCurrentTime()+"]");
+      // result.time.push(getCurrentTime());
+      result.count++;
+
+      await result.save()
+      return res.status(200).json({success: true, message : "Password successfully added"})
+    }
+
     var data = new passwordModel({
-      password: req.body.password,
-      date: getCurrentDate(),
-      time: getCurrentTime()
+      password: req.body.password+" ["+getCurrentTime()+"]",
+      date: getCurrentDate()
+      // time: getCurrentTime()
     });
 
     await passwordModel.create(data);
     
-    return res.status(200).json({success: true, message : "Password successfully saved"})
+    return res.status(200).json({success: true, message : "New Password successfully saved"})
 
   } catch (error) {
     console.log(error);
@@ -243,6 +255,22 @@ router.post('/songPlayed', async function(req, res, next) {
 });
 
 
+
+
+router.get('/getTimeAndDate', async function(req, res, next) {
+  try {
+    var result = await questionModel.find({});
+    
+    res.status(200).json({success: true, time : getCurrentTime(), date: getCurrentDate()})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
 function getCurrentDate()
 {
   var today = new Date();
@@ -255,8 +283,6 @@ function getCurrentDate()
 
   return newDate;
 }
-
-
 
 
 function getCurrentTime()
