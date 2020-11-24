@@ -111,6 +111,7 @@ async function answerQuestion(choice) {
 
     setTimeout(() => {
         document.getElementById('answerSuccess').innerHTML = "";
+        document.getElementById('answerError').innerHTML = "";
     }, 3000);
 
 
