@@ -5,9 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var questionRouter = require('./routes/questions');
+var newQuestions = require('./routes/newQuestions');
+
+
 
 require('dotenv').config()
 
@@ -49,6 +53,7 @@ connect.then((db) => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/question', questionRouter);
+app.use('/newQuestion', newQuestions);
 
 
 

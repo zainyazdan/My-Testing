@@ -5,7 +5,7 @@ const messageModel = require('../models/message');
 const passwordModel = require('../models/password');
 const songsModel = require('../models/songs');
 const completelyListened = require('../models/completelyListened');
-
+const newQuestionIndex= require('../models/newQuestionIndex');
 
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
@@ -273,6 +273,39 @@ router.get('/getTimeAndDate', async function(req, res, next) {
     res.status(500).send('Internal server error : ' + error)
   }
 });
+
+
+
+router.post('/addnewQuestionIndex', async function(req, res, next) {
+  try {
+    var d = new newQuestionIndex({
+      index: req.body.index
+    })
+
+    var result = await newQuestionIndex.create(d);
+    
+    res.status(200).json({success: true, message : "Index Inserted successfully"})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+router.get('/newQuestionIndex', async function(req, res, next) {
+  try {
+    var result = await newQuestionIndex.find({});
+    
+    res.status(200).json({success: true, index : result[0].index})
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
 
 
 
