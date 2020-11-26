@@ -1,17 +1,16 @@
 var baseURL = 'http://llm-yes.herokuapp.com';
 // var baseURL = 'http://localhost:3000';
 
-pageLoaded()
-
 var currentQuestionNo = 1;
 var totalQuestions = 0;
 var questionFetching = false;
 
 
+
+pageLoaded();
+loadHeadingData('gift-page-alert');
 loadInitialData();
 
-
-// loadTimeAndDate();
 
 
 function loadTimeAndDate() {
@@ -185,12 +184,6 @@ async function addmessage() {
 }
 
 
-
-
-
-
-
-
 function getCurrentDate() {
     var today = new Date();
     var dd = today.getDate();
@@ -203,21 +196,39 @@ function getCurrentDate() {
     return newDate;
 }
 
+// function getCurrentTime() {
 
+//     var d = new Date(); // for now
+//     d.getHours(); // => 9
+//     d.getMinutes(); // =>  30
+//     d.getSeconds(); // => 51
+//     var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+//     console.log("newTime : " + newTime);
+//     return newTime;
+// }
 
 
 function getCurrentTime() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
 
-    var d = new Date(); // for now
-    d.getHours(); // => 9
-    d.getMinutes(); // =>  30
-    d.getSeconds(); // => 51
-    var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    // Check whether AM or PM 
+    var newformat = hours >= 12 ? 'PM' : 'AM';
+
+    // Find current hour in AM-PM Format 
+    hours = hours % 12;
+
+    // To display "0" as "12" 
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    var newTime = hours + ':' + minutes + ':' + seconds + ' ' + newformat;
+
     console.log("newTime : " + newTime);
-
     return newTime;
 }
-
 
 
 
@@ -332,17 +343,48 @@ function getCurrentDate() {
 
 
 
+// function getCurrentTime() {
+
+//     var d = new Date(); // for now
+//     d.getHours(); // => 9
+//     d.getMinutes(); // =>  30
+//     d.getSeconds(); // => 51
+//     var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+//     //   console.log("newTime : " + newTime);
+
+//     return newTime;
+// }
+
+
+
+
+
 function getCurrentTime() {
+    var date = new Date();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
 
-    var d = new Date(); // for now
-    d.getHours(); // => 9
-    d.getMinutes(); // =>  30
-    d.getSeconds(); // => 51
-    var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-    //   console.log("newTime : " + newTime);
+    // Check whether AM or PM 
+    var newformat = hours >= 12 ? 'PM' : 'AM';
 
+    // Find current hour in AM-PM Format 
+    hours = hours % 12;
+
+    // To display "0" as "12" 
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    var newTime = hours + ':' + minutes + ':' + seconds + ' ' + newformat;
+
+    console.log("newTime : " + newTime);
     return newTime;
 }
+
+
+
+
+
 
 
 async function skipQuestion() {
@@ -450,4 +492,19 @@ async function loadNewQuestions() {
 }
 
 
+
+async function loadHeadingData(_location)
+{  
+  var config = {
+    method: 'get',
+    url: baseURL + '/question/getLoadingMessage/' + _location,
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  var result = await axios(config);
+
+  window.alert(result.data.data.message);
+}
 

@@ -5,13 +5,27 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 var timerOn = true;
 var toadExtra = false;
 
+pageLoaded()
+loadHeadingData()
 
-document.getElementById("time").innerHTML = "Tu Birthday Gift unlock hue inti dair ho gai hai 🤭 ... aur kuch new questions add kiye hain un k answer de dei 😅";
+async function loadHeadingData()
+{  
+  var config = {
+    method: 'get',
+    url: baseURL + '/question/getLoadingMessage/timer-Heading',
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  var result = await axios(config);
+  console.log(result.data);
+
+  document.getElementById("message").innerHTML = result.data.data.message;
+}
 
 
-pageLoaded();
-
-
+// document.getElementById("time").innerHTML = "Tu Birthday Gift unlock hue inti dair ho gai hai 🤭 ... aur kuch new questions add kiye hain un k answer de dei 😅";
 
 
 

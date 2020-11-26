@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const newQuestions = require('../models/newQuestions');
+// const newQuestions = require('../models/newQuestions');
 const messageModel = require('../models/message');
 const passwordModel = require('../models/password');
 const songsModel = require('../models/songs');
