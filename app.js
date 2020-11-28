@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var questionRouter = require('./routes/questions');
 var newQuestions = require('./routes/newQuestions');
+var myRoutes = require('./routes/myRoutes');
 
 
 
@@ -54,6 +55,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/question', questionRouter);
 app.use('/newQuestion', newQuestions);
+app.use('/myRoutes', myRoutes);
 
 
 
