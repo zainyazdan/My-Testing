@@ -8,6 +8,8 @@ var questionFetching = false;
 
 
 pageLoaded();
+
+
 loadHeadingData('gift-page-alert');
 loadInitialData();
 

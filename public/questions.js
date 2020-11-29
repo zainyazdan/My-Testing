@@ -4,8 +4,6 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 
 
 
-loadQuestionAnswers()
-
 var UnAnsweredQuestion = 0;
 
 async function loadQuestionAnswers() {
@@ -30,7 +28,7 @@ async function loadQuestionAnswers() {
 
 
   for (let i = 0; i < result.data.data.length; i++) {
-    AddQuestionToPage(i+1 , result.data.data[i].question, result.data.data[i].answer)
+    AddQuestionToPage(i + 1, result.data.data[i].question, result.data.data[i].answer)
   }
 
   document.getElementById('unanswered').innerHTML = "Total Unanswered question : " + UnAnsweredQuestion
@@ -43,37 +41,119 @@ async function loadQuestionAnswers() {
 // AddQuestionToPage(1, question, answer)
 
 
-function AddQuestionToPage(questionNo, question, answer)
-{
+function AddQuestionToPage(questionNo, question, answer) {
   var div = document.createElement('div');
   div.className = 'question-heading'
   div.innerHTML = "Question " + questionNo;
-  document.getElementById('questions').appendChild(div);
-  
+  document.getElementById('questions-answers').appendChild(div);
+
   var div2 = document.createElement('div');
   div2.className = 'question'
   div2.innerHTML = question;
-  document.getElementById('questions').appendChild(div2);
-  
+  document.getElementById('questions-answers').appendChild(div2);
 
-  if(answer.length == 0)
-  {
+
+  if (answer.length == 0) {
     var div = document.createElement('div');
     div.className = 'empty-answer';
     div.innerHTML = 'Not answered yet 😭';
     // mainDiv.innerHTML += div;
-    document.getElementById('questions').appendChild(div);
-    UnAnsweredQuestion ++;
+    document.getElementById('questions-answers').appendChild(div);
+    UnAnsweredQuestion++;
     return;
   }
-  
+
   for (let i = 0; i < answer.length; i++) {
     var div = document.createElement('div');
     div.className = 'answer'
-    div.innerHTML = 'Answer '+ (i+1) + ': ' + answer[i] + '<br>';
+    div.innerHTML = 'Answer ' + (i + 1) + ': ' + answer[i] + '<br>';
     // mainDiv.innerHTML += div;
-    document.getElementById('questions').appendChild(div);
+    document.getElementById('questions-answers').appendChild(div);
   }
 }
+
+
+
+async function addQuestion() {
+
+  var newQuestion = document.getElementById('newquestion').value;
+
+  // console.log("newQuestion : " + newQuestion);
+
+  if (newQuestion == "") {
+    window.alert('enter input');
+    return;
+  }
+
+  var data = JSON.stringify({ "question": newQuestion });
+
+  var config = {
+    method: 'post',
+    url: baseURL + '/question/addquestion',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  };
+
+  var result = await axios(config);
+
+  // var result = {};
+  // result.data.status = false;
+  // console.log("result.data : " , result.data);
+  // console.log("result.data.status : " , result.data.success);
+
+
+
+  if (result.data.success == true) {
+    document.getElementById('new-question-response').innerHTML = "Question Inserted Successfully ";
+    document.getElementById("new-question-response").style.color = "green";
+    ocument.getElementById('newquestion').value = ""
+  }
+  else {
+    document.getElementById('new-question-response').innerHTML = "Error while inserting question";
+    document.getElementById("new-question-response").style.color = "red";
+    document.getElementById('newquestion').value = ""
+  }
+
+  setTimeout(() => {
+    document.getElementById("new-question-response").innerHTML = '';
+    
+  }, 2000);
+
+  setTimeout(() => {
+    document.getElementById("new-question-response").innerHTML = "";
+  }, 2000)
+}
+
+
+function showQuestionAnswersPanel()
+{
+  showDiv('questions-answers');
+  hideDiv('add-new-question');
+  loadQuestionAnswers()
+}
+
+
+function showAddQuestionPanel()
+{
+  hideDiv('questions-answers');
+  showDiv('add-new-question');
+}
+
+
+
+function showDiv(id) {
+    document.getElementById(id).style.visibility = "visible";
+}
+
+function hideDiv(id) {
+    document.getElementById(id).style.visibility = "hidden";
+}
+
+
+
+
+
 
 

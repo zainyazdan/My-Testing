@@ -60,14 +60,16 @@ router.get('/getQuestion/:id', async function (req, res, next) {
 router.post('/addQuestion', async function (req, res, next) {
   try {
 
-    var questions = await questionModel.find({});
 
+    var questions = await questionModel.find({});
     var data = new questionModel({
       id: questions.length + 1,
       question: req.body.question,
     });
-
     var result = await questionModel.create(data);
+
+
+
 
     res.status(200).json({ success: true, message: "Question inserted" })
 
@@ -95,10 +97,28 @@ router.post('/addanswer/:id', async function (req, res, next) {
 
     await result.save();
 
+    console.log("result.answersCount : " + result.answersCount);
+
     if(result.answer.length == 1)
-    {
+    { 
+      var totalQuestions = await questionModel.countDocuments();
+
       var result2 = await newQuestionIndex.findById("5fbeebd53019410c2ca5b094");
+
+      // console.log("totalQuestions : " + totalQuestions);
+      // console.log("req.params.id : " + req.params.id);
+      
+      // if((req.params.id + 1) <= totalQuestions)
+      // {
+      //   console.log("condition 1");
+      //   result2.index = req.params.id + 1;
+      // }
+      // else
+      // {
+      //   console.log("condition 2");
+      // }
       result2.index = req.params.id;
+
       await result2.save();
     }
 
@@ -350,6 +370,22 @@ router.get('/getLoadingMessage/:location', async function (req, res, next) {
   }
 });
 
+
+
+
+router.get('/getTotalQuestions', async function (req, res, next) {
+  try {
+
+  
+    var result = await questionModel.countDocuments();
+
+    return res.status(200).json({ success: true, totalQuestions: result })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
 
 
 
