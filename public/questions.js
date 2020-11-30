@@ -7,6 +7,7 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 var UnAnsweredQuestion = 0;
 
 async function loadQuestionAnswers() {
+
   var config = {
     method: 'get',
     url: baseURL + '/myRoutes/questionAnswers',
@@ -108,35 +109,47 @@ async function addQuestion() {
   if (result.data.success == true) {
     document.getElementById('new-question-response').innerHTML = "Question Inserted Successfully ";
     document.getElementById("new-question-response").style.color = "green";
-    ocument.getElementById('newquestion').value = ""
+    document.getElementById('newquestion').value = ""
   }
   else {
     document.getElementById('new-question-response').innerHTML = "Error while inserting question";
     document.getElementById("new-question-response").style.color = "red";
     document.getElementById('newquestion').value = ""
   }
+  document.getElementById("new-question-response").innerHTML = "Question Inserted Successfully";
 
   setTimeout(() => {
     document.getElementById("new-question-response").innerHTML = '';
-    
+    console.log("Challa");
   }, 2000);
 
-  setTimeout(() => {
-    document.getElementById("new-question-response").innerHTML = "";
-  }, 2000)
+  
 }
 
 
-function showQuestionAnswersPanel()
-{
+function showQuestionAnswersPanel() {
+
+  // let html = '<div class="jumbotron text-center" id="add-new-question">' +
+  //             '<h1>Add New Questions</h1>	<br> ' +
+  //             '<textarea id="newquestion" rows="4" cols="50"></textarea>' +
+  //             '<br><br>' +
+  //             '<button onclick="addQuestion()" class="btn btn-primary">Insert</button>' +
+  //             '<br><br>' +
+  //             '<div id="new-question-response"></div>' +
+  //           '</div>'
+
+  // document.getElementById('main-box').innerHTML =html
+
   showDiv('questions-answers');
   hideDiv('add-new-question');
+
+  // console.log("aya");
+
   loadQuestionAnswers()
 }
 
 
-function showAddQuestionPanel()
-{
+function showAddQuestionPanel() {
   hideDiv('questions-answers');
   showDiv('add-new-question');
 }
@@ -144,16 +157,137 @@ function showAddQuestionPanel()
 
 
 function showDiv(id) {
-    document.getElementById(id).style.visibility = "visible";
+  document.getElementById(id).style.visibility = "visible";
 }
 
 function hideDiv(id) {
-    document.getElementById(id).style.visibility = "hidden";
+  document.getElementById(id).style.visibility = "hidden";
 }
 
 
 
+var test = false;
+
+function temp() {
+  // hideDiv("Testing");
+
+  // showDiv();
+  document.getElementById('Testing').innerHTML = ""
+}
 
 
 
+async function loadLoginTimeInfo(_option) {
+
+  var url;
+  if (_option == "date") {
+    var date = document.getElementById('login-date').value
+    console.log("date: " + date);
+
+    var newDate = changeDateFormat(date);
+    // console.log("newDate : "+ newDate);
+    url = baseURL + '/myroutes/getLoginAndPasswordInfo/' + newDate
+  }
+  else {
+    url = baseURL + '/myroutes/getCurrentLoginAndPasswordInfo'
+  }
+
+  var config = {
+    method: 'get',
+    url: url,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  var result = await axios(config);
+
+  console.log("result.data : ", result);
+
+
+  document.getElementById('login-info').innerHTML = ''
+
+  if (result.data.success == true) {
+    for (let j = 0; j < result.data.loginData.length; j++) {
+      loadPageLoginInfo(result.data.loginData[j])
+    }
+    loadPasswordInfo(result.data.passwords);
+  }
+  else {
+    document.getElementById('login-info').innerHTML += result.data.message;
+  }
+
+
+}
+
+
+function changeDateFormat(date)
+{
+
+  var res = date.split("-");
+  var year = res[0]
+  var month = res[1]
+  var day = res[2]
+
+  if(day[0] == "0")
+    day = res[2][1]
+  
+  if(month[0] == "0")
+    month = res[1][1]
+  
+  // console.log("res : " + res[0]);
+
+  var newDate = day + '-' + month + '-' + year;
+  console.log("newDate() : " + newDate);
+  return newDate
+}
+
+
+console.log("getCurrentDate() : " + getCurrentDate() );
+function getCurrentDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //As January is 0.
+  var yyyy = today.getFullYear();
+  var newDate = dd + "-" + mm + "-" + yyyy;
+
+  // console.log("date : " + newDate);
+
+  return newDate;
+}
+
+
+// {/* <div>
+// Login info  (5)
+// <ul> 
+//   <li>Coffee</li>
+//   <li>Tea</li>
+//   <li>Milk</li>
+// </ul>
+// </div> */}
+
+function loadPageLoginInfo(loginData) {
+
+  var html = '<div> <b>' +
+    loginData.page + ' (' + loginData.count + ') </b> <ul>'
+  for (let i = 0; i < loginData.time.length; i++) {
+    html += '<li>' + loginData.time[i] + '</li>'
+  }
+  html += '</ul></div>'
+  console.log("html : " + html);
+  document.getElementById('login-info').innerHTML += html
+}
+
+
+
+function loadPasswordInfo(passwordData) {
+  var html = '<div>' +
+    '<b>Password information (' + passwordData.count + ')</b> <ul>'
+  for (let i = 0; i < passwordData.password.length; i++) {
+    html += '<li>' + passwordData.password[i] + '</li>'
+  }
+  html += '</ul></div>'
+  console.log("html : " + html);
+  document.getElementById('login-info').innerHTML += html
+}
 

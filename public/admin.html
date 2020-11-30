@@ -71,6 +71,9 @@
 		color: red;
 	}
 	
+	.rightMargin{
+		margin-right: 10px
+	}
 
 
 
@@ -94,28 +97,44 @@
 </div> -->
 
 
-<button class="btn btn-primary float-left" onclick="showQuestionAnswersPanel()">Load Question Answers</button>
-<button class="btn btn-primary float-right" onclick="showAddQuestionPanel()">Insert New Question</button>
+<button class="btn btn-primary float-left rightMargin" onclick="showQuestionAnswersPanel()">Load Question Answers</button>
+
+<!-- <button class="btn btn-primary float-none rightMargin" onclick="temp()">Testing</button> -->
+
+<button class="btn btn-primary float-left rightMargin" onclick="showAddQuestionPanel()">Insert New Question</button>
+
+<button class="btn btn-primary float-left rightMargin" onclick="">Login Time</button>
 
 
 
+
+
+<!-- <div class="jumbotron" id="">
+	<center> <h1>Login information</h1> </center><br><br>
+
+	<input id="login-date" type="date" name="">
+
+	<button onclick="loadLoginTimeInfo('date')" class="btn btn-primary" id="">Search by date</button> OR
+	<button onclick="loadLoginTimeInfo('current')" class="btn btn-primary" id="">Search for Current date</button> <br><br>
+
+	<div id="login-info">
+		
+	</div>
+</div> -->
+
+
+
+
+<!-- <div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;">  -->
 <div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;"> 
 	<h1>Add New Questions</h1> 
 	<br>
-
-
 	<textarea id="newquestion" rows="4" cols="50"></textarea>
-
-	<br>
-	<br>
+	<br><br>
 	<button onclick="addQuestion()" class="btn btn-primary">Insert</button>
-	<br>
-	<br>
-
+	<br><br>
 	<div id="new-question-response"></div>
 </div>
-
-
 
 
 
@@ -123,6 +142,13 @@
 	<h4 id="unanswered"></h4> 
 	<h1> Question Answers</h1> 
 </div>
+
+
+
+
+
+
+
 
 
 
