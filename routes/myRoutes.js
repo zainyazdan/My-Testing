@@ -28,7 +28,7 @@ router.get('/getCurrentLoginAndPasswordInfo', async function (req, res, next) {
 
     var date = getCurrentDate();
     var login = await visitedModel.find({date: date});
-    var password = await passwordModel.find({date: date});
+    var password = await passwordModel.findOne({date: date});
 
     if(login.length == 0)
     {

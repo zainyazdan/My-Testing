@@ -123,7 +123,7 @@ async function addQuestion() {
     console.log("Challa");
   }, 2000);
 
-  
+
 }
 
 
@@ -203,38 +203,35 @@ async function loadLoginTimeInfo(_option) {
   var result = await axios(config);
 
   console.log("result.data : ", result);
-
-
   document.getElementById('login-info').innerHTML = ''
+
 
   if (result.data.success == true) {
     for (let j = 0; j < result.data.loginData.length; j++) {
       loadPageLoginInfo(result.data.loginData[j])
     }
     loadPasswordInfo(result.data.passwords);
+    console.log("Password: " , result.data.passwords);
   }
   else {
     document.getElementById('login-info').innerHTML += result.data.message;
   }
-
-
 }
 
 
-function changeDateFormat(date)
-{
+function changeDateFormat(date) {
 
   var res = date.split("-");
   var year = res[0]
   var month = res[1]
   var day = res[2]
 
-  if(day[0] == "0")
+  if (day[0] == "0")
     day = res[2][1]
-  
-  if(month[0] == "0")
+
+  if (month[0] == "0")
     month = res[1][1]
-  
+
   // console.log("res : " + res[0]);
 
   var newDate = day + '-' + month + '-' + year;
@@ -243,7 +240,7 @@ function changeDateFormat(date)
 }
 
 
-console.log("getCurrentDate() : " + getCurrentDate() );
+console.log("getCurrentDate() : " + getCurrentDate());
 function getCurrentDate() {
   var today = new Date();
   var dd = today.getDate();
