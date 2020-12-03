@@ -6,6 +6,9 @@ var totalQuestions = 0;
 var questionFetching = false;
 
 
+var socket = io();
+socket.emit('joinedSite', 'Gift page');
+
 
 pageLoaded();
 

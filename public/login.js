@@ -1,6 +1,9 @@
 var baseURL = 'http://llm-yes.herokuapp.com';
 // var baseURL = 'http://localhost:3000';
 
+var socket = io();
+socket.emit('joinedSite', 'Login page');
+
 pageLoaded();
 
 var loginIndex = 0;

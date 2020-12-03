@@ -9,18 +9,20 @@ async function handleClients(io) {
         console.log("client is connected to the server");
 
 
-        socket.on('joinedSite', async (data) => {
+        socket.on('joinedSite', async (page) => {
 
-            
             var data = {}
             data.date = getCurrentDate();
             data.time = getCurrentTime();
+            data.page = page;
+
+
             io.emit('userJoined', data);
 
             var result = await socketModel.findOne({date:data.date })
             if(result)
             {
-                result.time.push('Joined ' + data.time);
+                result.time.push('Joined (' + page + ') '+ data.time);
                 result.count++;
                 await result.save();
                 console.log("joined time added");

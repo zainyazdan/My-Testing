@@ -1,5 +1,4 @@
 var socket = io();
-
 socket.emit('joinedSite', 'I am here');
 
 // socket.on('userJoined', (data) => {

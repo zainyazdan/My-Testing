@@ -4,7 +4,7 @@ socket.on('userJoined', (data) => {
 
     console.log("userJoined() : ", data);
 
-    document.getElementById('socket-data').innerHTML += 'Joined : '  + data.time + '<br>'
+    document.getElementById('socket-data').innerHTML += 'Joined ('+ data.page+'): '  + data.time + '<br>'
 })
 
 
