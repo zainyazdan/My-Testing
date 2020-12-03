@@ -25,6 +25,19 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
+
+const io = require('socket.io')(server)
+
+require('../chatting/handleClients')(io)
+
+
+
+
+
+
+
+
+
 server.listen(port, ()=> {
   console.log("Server listning at port : " + port);
 });
