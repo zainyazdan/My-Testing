@@ -5,51 +5,41 @@ const messageModel = require('../models/message');
 const passwordModel = require('../models/password');
 const songsModel = require('../models/songs');
 const completelyListened = require('../models/completelyListened');
+const newQuestionsModel = require('../models/newQuestions');
 
 
-router.get('/totalQuestions', async function(req, res, next) {
-  try {
-    var result = await newQuestions.find({});
+
+// router.get('/newQuestions', async function(req, res, next) {
+//   try {
+//     var result = await newQuestions.find({});
     
-    res.status(200).json({success: true, totalQuestions : result.length})
+//     res.status(200).json({success: true, totalQuestions : result.length})
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal server error : ' + error)
-  }
-});
-
-router.get('/newQuestions', async function(req, res, next) {
-  try {
-    var result = await newQuestions.find({});
-    
-    res.status(200).json({success: true, totalQuestions : result.length})
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal server error : ' + error)
-  }
-});
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Internal server error : ' + error)
+//   }
+// });
 
 
-/* GET users listing. */
-router.get('/getQuestion/:id', async function(req, res, next) {
-  try {
-    var result = await newQuestions.findOne({id:req.params.id})
-    .select('id question answer');
+// /* GET users listing. */
+// router.get('/getQuestion/:id', async function(req, res, next) {
+//   try {
+//     var result = await newQuestions.findOne({id:req.params.id})
+//     .select('id question answer');
 
-    if(!result)
-      return res.status(200).json({success: false, mesaage : "No question found"})
+//     if(!result)
+//       return res.status(200).json({success: false, mesaage : "No question found"})
 
 
 
-    return res.status(200).json({success: true, data : result})
+//     return res.status(200).json({success: true, data : result})
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal server error : ' + error)
-  }
-});
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Internal server error : ' + error)
+//   }
+// });
 
 
 
@@ -57,16 +47,16 @@ router.get('/getQuestion/:id', async function(req, res, next) {
 router.post('/addQuestion', async function(req, res, next) {
   try {
 
-    var questions = await newQuestions.find({});
+    var questions = await newQuestionsModel.find({});
 
-    var data = new newQuestions({
+    var data = new newQuestionsModel({
       id: questions.length + 1,
       question: req.body.question,
     });
 
-    var result = await newQuestions.create(data);
+    await newQuestionsModel.create(data);
     
-    res.status(200).json({success: true, message : "Question inserted"})
+    res.status(200).json({success: true, message : "New Question inserted"})
 
   } catch (error) {
     console.log(error);
@@ -75,30 +65,30 @@ router.post('/addQuestion', async function(req, res, next) {
 });
 
 
-router.post('/addanswer/:id', async function(req, res, next) {
-  try {
+// router.post('/addanswer/:id', async function(req, res, next) {
+//   try {
     
-    // console.log("req.body.answer: " + req.body.answer);
+//     // console.log("req.body.answer: " + req.body.answer);
 
-    var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
+//     var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
 
-    var result = await newQuestions.findOne({id:req.params.id})
+//     var result = await newQuestions.findOne({id:req.params.id})
 
-    // console.log("result : " , result);
+//     // console.log("result : " , result);
 
-    result.answer.push(answer);
+//     result.answer.push(answer);
 
-    result.answersCount = result.answer.length;
+//     result.answersCount = result.answer.length;
 
-    await result.save();
+//     await result.save();
     
-    res.status(200).json({success: true, message : "Answer successfully saved"})
+//     res.status(200).json({success: true, message : "Answer successfully saved"})
 
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal server error : ' + error)
-  }
-});
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Internal server error : ' + error)
+//   }
+// });
 
 
 

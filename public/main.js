@@ -10,7 +10,7 @@ var socket = io();
 socket.emit('joinedSite', 'Gift page');
 
 
-pageLoaded();
+// pageLoaded();
 
 
 loadHeadingData('gift-page-alert');
