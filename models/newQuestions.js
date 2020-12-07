@@ -27,6 +27,12 @@ var QuestionSchema = new Schema({
     replyRequired: {
         type: Boolean,
         default: true
+    },
+    date: {
+        type: String
+    },
+    time: {
+        type: String
     }
 });
 

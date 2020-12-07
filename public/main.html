@@ -24,6 +24,63 @@
 	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+<style>
+	.box{
+		height: 100px; 
+		width: 75px; 
+		background-color: #201570; 
+		color: white;
+		padding: 10px;
+		margin: 10px;
+		float: left
+	}
+
+	.borderr{
+		border: 1px solid black
+	}
+
+	.question{
+		font-size: 20px;
+		margin-bottom: 20px;
+		text-align: justify;
+		 font-weight: bold;
+	}
+
+	.question-heading{
+		font-size: 20px;
+		margin-top: 20px;
+		text-align: center
+		color: red;
+		 font-weight: bold;
+	}
+
+
+
+	.answer{
+		margin-bottom: 50px
+		font-size: 12px;
+		/*text-align: left;*/
+		text-align: justify
+	}
+	
+	.empty-answer{
+		margin-bottom: 50px
+		font-size: 15px;
+		/*text-align: left;*/
+		text-align: center;
+		color: red;
+	}
+	
+	.rightMargin{
+		margin-right: 10px
+	}
+
+</style>
+
+
+
+
+
 </head>
 <body>
 
@@ -34,13 +91,15 @@
 
 
 
-	<div class="jumboton text-center">
+	<!-- <div class="jumboton text-center">
 		
 		<img style="width: 100%; height: 200px" src="./images/banner.jpg">
  	</div>	
-
+ -->
+<!-- 
 	<div style="padding: 20px">
 		
+
 		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/hb14-1.gif" ></div>
 
 		<div class="text-center" ><img style="width: 100%" class="img-fluid" src="./images/hb14-2.gif" ></div>
@@ -55,7 +114,12 @@
 		<div class="text-center"><img style="width: 100%" class="img-fluid" src="./images/farheen2.jpg"></div>
 
 		<div class="text-center"><img style="width: 100%" class="img-fluid" src="./images/shair.jpg"></div>
+ -->
+
 		<br><br>
+
+
+
 
 	</div>
 
@@ -65,7 +129,7 @@
 
 	<br>
 	<br>
-
+<!-- 
 	<div class="text-center" style="padding: 20px"> 
 
 		<h3 >A small message from me 😉</h3>
@@ -125,7 +189,7 @@
 
 
 	</div>
-
+ -->
 
 
 	<br>
@@ -331,11 +395,29 @@
 		</div>
 
 
+
+		<div class="jumbotron text-center" id=""> 
+			<h4 id="unanswered"></h4> 
+			<h1>Tere Questions Mere Answers 😊</h1> <br>
+			<button class="btn btn-primary float-none" onclick="loadQuestionAnswers()">Load Questions Answers</button>
+			<div id="questions-answers"></div>
+
+		</div>
+
+
+
+
+
+
+
+
+
 <br><br>
 
 	<script src="/socket.io/socket.io.js"></script>
-	<!-- <script src="socket.js"></script> -->
 	<script src="newQuestions.js"></script>
 	<script src="main.js"></script>
+
+
 </body>
 </html>

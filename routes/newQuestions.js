@@ -12,7 +12,7 @@ const newQuestionsModel = require('../models/newQuestions');
 // router.get('/newQuestions', async function(req, res, next) {
 //   try {
 //     var result = await newQuestions.find({});
-    
+
 //     res.status(200).json({success: true, totalQuestions : result.length})
 
 //   } catch (error) {
@@ -23,40 +23,13 @@ const newQuestionsModel = require('../models/newQuestions');
 
 
 // /* GET users listing. */
-// router.get('/getQuestion/:id', async function(req, res, next) {
-//   try {
-//     var result = await newQuestions.findOne({id:req.params.id})
-//     .select('id question answer');
-
-//     if(!result)
-//       return res.status(200).json({success: false, mesaage : "No question found"})
-
-
-
-//     return res.status(200).json({success: true, data : result})
-
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Internal server error : ' + error)
-//   }
-// });
-
-
-
-
-router.post('/addQuestion', async function(req, res, next) {
+router.get('/questionAnswers', async function (req, res, next) {
   try {
+    var result = await newQuestionsModel.find({})
+      .select('-_id -__v');
 
-    var questions = await newQuestionsModel.find({});
 
-    var data = new newQuestionsModel({
-      id: questions.length + 1,
-      question: req.body.question,
-    });
-
-    await newQuestionsModel.create(data);
-    
-    res.status(200).json({success: true, message : "New Question inserted"})
+    return res.status(200).json({ success: true, data: result })
 
   } catch (error) {
     console.log(error);
@@ -65,41 +38,80 @@ router.post('/addQuestion', async function(req, res, next) {
 });
 
 
-// router.post('/addanswer/:id', async function(req, res, next) {
-//   try {
-    
-//     // console.log("req.body.answer: " + req.body.answer);
-
-//     var answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "]";
-
-//     var result = await newQuestions.findOne({id:req.params.id})
-
-//     // console.log("result : " , result);
-
-//     result.answer.push(answer);
-
-//     result.answersCount = result.answer.length;
-
-//     await result.save();
-    
-//     res.status(200).json({success: true, message : "Answer successfully saved"})
-
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Internal server error : ' + error)
-//   }
-// });
 
 
+router.post('/addQuestion', async function (req, res, next) {
+  try {
+
+    var questions = await newQuestionsModel.find({});
+
+    var data = new newQuestionsModel({
+      id: questions.length + 1,
+      question: req.body.question,
+      date: getCurrentDate(),
+      time: getCurrentTime()
+    });
+
+    await newQuestionsModel.create(data);
+
+    res.status(200).json({ success: true, message: "New Question inserted" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
 
 
-function getCurrentDate()
-{
+router.post('/addanswer/:id/:userId', async function (req, res, next) {
+  try {
+
+    // console.log("req.body.answer: " + req.body.answer);
+
+  
+
+    var result = await newQuestionsModel.findOne({ id: req.params.id })
+
+    // console.log("result : " , result);
+    if (!result) {
+      return res.status(200).json({ success: true, message: "Question not found against this question id" })
+    }
+
+    var answer;
+    if (req.params.userId == "zain")
+    {
+      result.ZCount++;
+      result.replyRequired == false;
+      answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "] ZAIN";
+    }
+    else if (req.params.userId == "llm")
+    {
+      result.FCount++;
+      answer = req.body.answer + "  [data: " + getCurrentDate() + ", time: " + getCurrentTime() + "] _LLM";
+    }
+
+    result.answer.push(answer);
+    result.answersCount = result.answer.length;
+
+    await result.save();
+
+    return res.status(200).json({ success: true, message: "Answer successfully saved" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
+
+function getCurrentDate() {
   var today = new Date();
   var dd = today.getDate();
-  var mm = today.getMonth()+1; //As January is 0.
+  var mm = today.getMonth() + 1; //As January is 0.
   var yyyy = today.getFullYear();
-  var newDate = dd+"-"+mm+"-"+yyyy;
+  var newDate = dd + "-" + mm + "-" + yyyy;
 
   // console.log("date : " + newDate);
 
@@ -107,16 +119,14 @@ function getCurrentDate()
 }
 
 
-function getCurrentTime()
-{
+function getCurrentTime() {
 
   var d = new Date(); // for now
   d.getHours(); // => 9
   d.getMinutes(); // =>  30
   d.getSeconds(); // => 51
-  var newTime = d.getHours() + ":" + d.getMinutes() + ":" +  d.getSeconds();
-  console.log("newTime : " + newTime);
-
+  var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+  // console.log("newTime : " + newTime);
   return newTime;
 }
 
