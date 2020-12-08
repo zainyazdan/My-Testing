@@ -6,11 +6,13 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 
 var UnAnsweredQuestion = 0;
 
-async function loadQuestionAnswers() {
+async function loadMyQuestionAnswers(uri) {
+
+  UnAnsweredQuestion = 0;
 
   var config = {
     method: 'get',
-    url: baseURL + '/myRoutes/questionAnswers',
+    url: baseURL + uri,
     headers: {
       'Content-Type': 'application/json'
     }
@@ -26,6 +28,7 @@ async function loadQuestionAnswers() {
   // AddQuestionToPage(2 , result.data.data[1].question, result.data.data[1].answer)
 
 
+  // document.getElementById('questions-answers').innerHTML ="";
 
 
   for (let i = 0; i < result.data.data.length; i++) {
@@ -43,6 +46,7 @@ async function loadQuestionAnswers() {
 
 
 function AddQuestionToPage(questionNo, question, answer) {
+  
   var div = document.createElement('div');
   div.className = 'question-heading'
   div.innerHTML = "Question " + questionNo;
@@ -145,7 +149,7 @@ function showQuestionAnswersPanel() {
 
   // console.log("aya");
 
-  loadQuestionAnswers()
+  loadMyQuestionAnswers('/myRoutes/questionAnswers');
 }
 
 
@@ -288,3 +292,12 @@ function loadPasswordInfo(passwordData) {
   document.getElementById('login-info').innerHTML += html
 }
 
+
+
+async function loadLLMQuestions() {
+  console.log("loadLLMQuestions()");
+  
+  showDiv('questions-answers');
+  hideDiv('add-new-question');
+  loadMyQuestionAnswers('/newQuestion/questionAnswers');
+}
