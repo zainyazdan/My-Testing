@@ -107,6 +107,7 @@
 
 
 <button class="btn btn-primary float-left rightMargin" onclick="loadLLMQuestions()">Load Other Questions</button>
+<button class="btn btn-primary float-left rightMargin" onclick="showMyAnswerSection()">Give Answer</button>
 
 
 
@@ -153,6 +154,32 @@
 </div>
 
 
+
+
+
+
+<div class="jumbotron text-center" id="my-answers-section" style="visibility: hidden;"> 
+	
+	<h1>Answers</h1>
+	<div><b> Question # <span id="give-answer-id">0</span> </b> </div>
+
+	<b> <div id="llm-question"> </div></b>
+	<div id="my-given-answers">This is my answers</div>
+	<br>
+
+	<textarea id="my-answer" rows="4" cols="50"></textarea>
+	<div id="llm-answer-response"></div>
+
+	<br>
+
+	<button onclick="loadPreviousLLmQuestion()" class="float-left btn btn-secondary">Previous</button>
+
+	<button onclick="addMyAnswer()" class="btn btn-primary">Submit</button>
+
+	<button onclick="loadNextLLmQuestion()" class="float-right btn btn-secondary">Next</button>
+
+
+</div>
 
 
 

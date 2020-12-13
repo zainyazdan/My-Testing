@@ -301,3 +301,135 @@ async function loadLLMQuestions() {
   hideDiv('add-new-question');
   loadMyQuestionAnswers('/newQuestion/questionAnswers');
 }
+
+var CurrentQuestionToAnswer = 1;
+
+async function showMyAnswerSection()
+{
+  showDiv('my-answers-section');
+  hideDiv('questions-answers');
+  hideDiv('add-new-question');
+
+  await loadIndexOfCurrentAnswer();
+  await loadQuestionToAnswer();
+}
+
+
+
+
+async function loadIndexOfCurrentAnswer()
+{
+  CurrentQuestionToAnswer = await loadNewQuestionIndex();
+}
+
+async function loadQuestionToAnswer()
+{
+  
+
+  var config = {
+    method: 'get',
+    url: baseURL + '/newQuestion/questionAnswers/'+ CurrentQuestionToAnswer,
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  };
+  var question = await axios(config)
+
+  console.log("my new question : " , question.data.data);
+  document.getElementById('give-answer-id').innerHTML = question.data.data.id;
+
+  
+  document.getElementById('llm-question').innerHTML = question.data.data.question;
+  document.getElementById('give-answer-id').innerHTML = question.data.data.id;
+
+
+  console.log("question.data.data.answer : " + question.data.data.answer.length);
+
+  var htmlAnswers = document.getElementById('my-given-answers');
+  htmlAnswers.innerHTML = ''
+  if (question.data.data.answer.length > 0) 
+  {
+    for (let i = 0; i < question.data.data.answer.length ; i++) {
+      console.log(question.data.data.answer[i]);
+      htmlAnswers.innerHTML += 'Answer ' + i + ': ' + question.data.data.answer[i] + '<br>';
+
+    } 
+  }
+
+
+}
+
+
+async function addMyAnswer()
+{
+  var answer = document.getElementById('my-answer').value;
+
+  if(answer.length == 0)
+  {
+    window.alert("Answer cannot be empty")
+    return;
+  }
+
+  var data = JSON.stringify({"answer":answer});
+
+  var config = {
+    method: 'post',
+    url: baseURL + '/newQuestion/addanswer/'+CurrentQuestionToAnswer+'/zain',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+
+  var result = await axios(config);
+  
+  if (result.data.success == true) {
+    document.getElementById('llm-answer-response').innerHTML = "Answer Inserted Successfully ";
+    document.getElementById("llm-answer-response").style.color = "green";
+    document.getElementById('my-answer').value = ""
+  }
+  else {
+    document.getElementById('llm-answer-response').innerHTML = "Error while inserting question";
+    document.getElementById("llm-answer-response").style.color = "red";
+    document.getElementById('my-answer').value = ""
+  }
+
+  setTimeout(() => {
+    document.getElementById("llm-answer-response").innerHTML = '';
+  }, 2000);
+
+  CurrentQuestionToAnswer++;
+  console.log("CurrentQuestionToAnswer : "  +CurrentQuestionToAnswer);
+  loadQuestionToAnswer();
+}
+
+async function loadNewQuestionIndex()
+{  
+  var config = {
+    method: 'get',
+    url: baseURL+'/newQuestion/newQuestionIndex',
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  };
+  
+  var res = await axios(config)
+  
+  console.log("new index : " , res.data.index);
+  return res.data.index;
+}
+
+
+
+async function loadPreviousLLmQuestion()
+{
+  CurrentQuestionToAnswer--;
+  loadQuestionToAnswer();
+}
+
+
+async function loadNextLLmQuestion()
+{
+  CurrentQuestionToAnswer++;
+  loadQuestionToAnswer();
+}
