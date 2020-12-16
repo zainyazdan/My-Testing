@@ -7,6 +7,7 @@ const songsModel = require('../models/songs');
 const completelyListened = require('../models/completelyListened');
 const loadingMessages = require('../models/loadingMessages');
 const visitedModel = require('../models/visited');
+const activitiesModel = require('../models/activities');
 
 
 /* GET users listing. */
@@ -27,11 +28,10 @@ router.get('/getCurrentLoginAndPasswordInfo', async function (req, res, next) {
   try {
 
     var date = getCurrentDate();
-    var login = await visitedModel.find({date: date});
-    var password = await passwordModel.findOne({date: date});
+    var login = await visitedModel.find({ date: date });
+    var password = await passwordModel.findOne({ date: date });
 
-    if(login.length == 0)
-    {
+    if (login.length == 0) {
       return res.status(200).json({ success: false, message: "Us ne abhi login ni kia 😭" })
     }
 
@@ -49,12 +49,11 @@ router.get('/getLoginAndPasswordInfo/:date', async function (req, res, next) {
   try {
 
     var date = req.params.date;
-     
-    var login = await visitedModel.find({date: date});
-    var password = await passwordModel.findOne({date: date});
 
-    if(login.length == 0)
-    {
+    var login = await visitedModel.find({ date: date });
+    var password = await passwordModel.findOne({ date: date });
+
+    if (login.length == 0) {
       return res.status(200).json({ success: false, message: "Us ne abhi login ni kia 😭" })
     }
 
@@ -68,6 +67,33 @@ router.get('/getLoginAndPasswordInfo/:date', async function (req, res, next) {
 
 
 
+router.post('/addActivities', async function (req, res, next) {
+  try {
+
+
+    var activity = await activitiesModel.findOne({ date: getCurrentDate() });
+
+    if (activity) {
+      activity.activities.push(req.body.activity + " [" + getCurrentTime() + "]");
+      activity.count++;
+      await activity.save();
+    }
+    else {
+      var data = new activitiesModel({
+        date: getCurrentDate(),
+        activities: req.body.activity + " [" + getCurrentTime() + "]",
+      })
+      await activitiesModel.create(data);
+    }
+
+    return res.status(200).json({ success: true, message: "Activity successfully added" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
 
 function getCurrentDate() {
   var today = new Date();
@@ -79,6 +105,29 @@ function getCurrentDate() {
   // console.log("date : " + newDate);
 
   return newDate;
+}
+
+
+function getCurrentTime() {
+  var date = new Date();
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var seconds = date.getSeconds();
+
+  // Check whether AM or PM 
+  var newformat = hours >= 12 ? 'PM' : 'AM';
+
+  // Find current hour in AM-PM Format 
+  hours = hours % 12;
+
+  // To display "0" as "12" 
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  var newTime = hours + ':' + minutes + ':' + seconds + ' ' + newformat;
+
+  // console.log("newTime : " + newTime);
+  return newTime;
 }
 
 

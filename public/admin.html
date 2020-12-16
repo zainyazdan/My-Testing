@@ -88,98 +88,91 @@
 </head>
 <body>
 
-<!-- 
-<div class="text-center">
+<div id="all-content" style="visibility: hidden;">
 
-	<div id="time1"></div>
-	<div id="time2"></div>
-	
-</div> -->
+	<button class="btn btn-primary float-left rightMargin" onclick="showQuestionAnswersPanel()">Load Question Answers</button>
 
+	<!-- <button class="btn btn-primary float-none rightMargin" onclick="temp()">Testing</button> -->
 
-<button class="btn btn-primary float-left rightMargin" onclick="showQuestionAnswersPanel()">Load Question Answers</button>
+	<button class="btn btn-primary float-left rightMargin" onclick="showAddQuestionPanel()">Insert New Question</button>
 
-<!-- <button class="btn btn-primary float-none rightMargin" onclick="temp()">Testing</button> -->
-
-<button class="btn btn-primary float-left rightMargin" onclick="showAddQuestionPanel()">Insert New Question</button>
-
-<button class="btn btn-primary float-left rightMargin" onclick="">Login Time</button>
+	<button class="btn btn-primary float-left rightMargin" onclick="">Login Time</button>
 
 
-<button class="btn btn-primary float-left rightMargin" onclick="loadLLMQuestions()">Load Other Questions</button>
-<button class="btn btn-primary float-left rightMargin" onclick="showMyAnswerSection()">Give Answer</button>
+	<button class="btn btn-primary float-left rightMargin" onclick="loadLLMQuestions()">Load Other Questions</button>
+	<button class="btn btn-primary float-left rightMargin" onclick="showMyAnswerSection()">Give Answer</button>
 
 
 
 
 
-<div class="jumbotron" id="">
-	<center> <h1>Login information</h1> </center><br><br>
+	<div class="jumbotron" id="">
+		<center> <h1>Login information</h1> </center><br><br>
 
-	<div id="socket-data"> <b>Live Status:</b> <br>
-		
+		<div id="socket-data"> <b>Live Status:</b> <br>
+			
+		</div>
+		<br>
+		<br>
+		<input id="login-date" type="date" name="">
+
+		<button onclick="loadLoginTimeInfo('date')" class="btn btn-primary" id="">Search by date</button> OR
+		<button onclick="loadLoginTimeInfo('current')" class="btn btn-primary" id="">Search for Current date</button> <br><br>
+
+		<div id="login-info">
+			
+		</div>
 	</div>
-	<br>
-	<br>
-	<input id="login-date" type="date" name="">
 
-	<button onclick="loadLoginTimeInfo('date')" class="btn btn-primary" id="">Search by date</button> OR
-	<button onclick="loadLoginTimeInfo('current')" class="btn btn-primary" id="">Search for Current date</button> <br><br>
 
-	<div id="login-info">
-		
+
+
+	<!-- <div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;">  -->
+	<div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;"> 
+		<h1>Add New Questions</h1> 
+		<br>
+		<textarea id="newquestion" rows="4" cols="50"></textarea>
+		<br><br>
+		<button onclick="addQuestion()" class="btn btn-primary">Insert</button>
+		<br><br>
+		<div id="new-question-response"></div>
 	</div>
-</div>
 
 
 
-
-<!-- <div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;">  -->
-<div class="jumbotron text-center" id="add-new-question" style="visibility: hidden;"> 
-	<h1>Add New Questions</h1> 
-	<br>
-	<textarea id="newquestion" rows="4" cols="50"></textarea>
-	<br><br>
-	<button onclick="addQuestion()" class="btn btn-primary">Insert</button>
-	<br><br>
-	<div id="new-question-response"></div>
-</div>
+	<div class="jumbotron text-center" id="questions-answers" style="visibility: hidden;"> 
+		<h4 id="unanswered"></h4> 
+		<h1> Question Answers</h1>
+		<div id=""></div>
+	</div>
 
 
 
-<div class="jumbotron text-center" id="questions-answers" style="visibility: hidden;"> 
-	<h4 id="unanswered"></h4> 
-	<h1> Question Answers</h1>
-	<div id=""></div>
-</div>
+	<div class="jumbotron text-center" id="my-answers-section" style="visibility: hidden;"> 
+		
+		<h1>Answers</h1>
+		<div><b> Question # <span id="give-answer-id">0</span> </b> </div>
+
+		<b> <div id="llm-question"> </div></b>
+		<div id="my-given-answers"></div>
+		<br>
+
+		<textarea id="my-answer" rows="4" cols="50"></textarea>
+		<div id="llm-answer-response"></div>
+
+		<br>
+
+		<button onclick="loadPreviousLLmQuestion()" class="float-left btn btn-secondary">Previous</button>
+
+		<button onclick="addMyAnswer()" class="btn btn-primary">Submit</button>
+
+		<button onclick="loadNextLLmQuestion()" class="float-right btn btn-secondary">Next</button>
 
 
 
-<div class="jumbotron text-center" id="my-answers-section" style="visibility: hidden;"> 
-	
-	<h1>Answers</h1>
-	<div><b> Question # <span id="give-answer-id">0</span> </b> </div>
-
-	<b> <div id="llm-question"> </div></b>
-	<div id="my-given-answers"></div>
-	<br>
-
-	<textarea id="my-answer" rows="4" cols="50"></textarea>
-	<div id="llm-answer-response"></div>
-
-	<br>
-
-	<button onclick="loadPreviousLLmQuestion()" class="float-left btn btn-secondary">Previous</button>
-
-	<button onclick="addMyAnswer()" class="btn btn-primary">Submit</button>
-
-	<button onclick="loadNextLLmQuestion()" class="float-right btn btn-secondary">Next</button>
-
-
+	</div>
 
 </div>
-
-
 
 
 

@@ -2,6 +2,33 @@
 var baseURL = 'http://llm-yes.herokuapp.com'
 // var baseURL = 'http://localhost:3000'
 
+var password = 'zainllmzll'
+var passwordCount = 0;
+
+LoginUsingPassword()
+
+function LoginUsingPassword() {
+
+  while (passwordCount < 1) {
+    var pass = prompt("Enter password", "");
+
+    if (pass == "")
+      window.alert("Please enter the password");
+    else if (pass == password) {
+      passwordCount++;
+    }
+    else {
+      window.alert("Wrong password");
+      console.log("ghalat");
+
+      addActivity("wrong password on admin page:" + pass)
+    }
+    console.log("passwordCount : " + passwordCount);
+  }
+  console.log("show");
+  showDiv("all-content");
+}
+
 
 
 var UnAnsweredQuestion = 0;
@@ -419,17 +446,86 @@ async function loadNewQuestionIndex()
   return res.data.index;
 }
 
-
-
 async function loadPreviousLLmQuestion()
 {
   CurrentQuestionToAnswer--;
   loadQuestionToAnswer();
 }
 
-
 async function loadNextLLmQuestion()
 {
   CurrentQuestionToAnswer++;
   loadQuestionToAnswer();
 }
+
+
+async function pageLoaded(type) {
+
+  console.log("pageLoaded()");
+  var date = getCurrentDate();
+  var time = getCurrentTime();
+
+  // console.log("pageLoaded()");
+
+  var data = JSON.stringify({ "page": "admin page " + type, "date": date, "time": time });
+
+  var config = {
+    method: 'post',
+    url: baseURL + '/visited',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: data
+  };
+
+  var result = await axios(config);
+  console.log("result : ", result);
+}
+
+
+
+function getCurrentDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //As January is 0.
+  var yyyy = today.getFullYear();
+  var newDate = dd + "-" + mm + "-" + yyyy;
+
+  // console.log("date : " + newDate);
+
+  return newDate;
+}
+
+
+function getCurrentTime() {
+
+  var d = new Date(); // for now
+  d.getHours(); // => 9
+  d.getMinutes(); // =>  30
+  d.getSeconds(); // => 51
+  var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+  console.log("newTime : " + newTime);
+
+  return newTime;
+}
+
+
+
+async function addActivity(_activity)
+{
+    var data = JSON.stringify({"activity": _activity});
+
+    var config = {
+    method: 'post',
+    url: baseURL + '/myroutes/addActivities',
+    headers: { 
+        'Content-Type': 'application/json'
+    },
+        data : data
+    };
+
+    await axios(config)
+    console.log("activity entered");
+}
+
+

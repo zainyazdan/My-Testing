@@ -147,7 +147,7 @@ async function addAnswer(_questionNo, _data) {
     };
 
     var result = await axios(config);
-    console.log("result : ", result.data);
+    // console.log("result : ", result.data);
 }
 
 
@@ -183,7 +183,7 @@ async function addmessage() {
 
 
     var result = await axios(config);
-    console.log("result : ", result.data);
+    // console.log("result : ", result.data);
 }
 
 
@@ -327,7 +327,7 @@ async function pageLoaded() {
     };
 
     var result = await axios(config);
-    console.log("result : ", result);
+    // console.log("result : ", result);
 }
 
 
@@ -485,7 +485,7 @@ async function loadNewQuestions() {
     var result = await axios(config);
     // currentQuestionNo = 1;
     currentQuestionNo = result.data.index;
-    console.log("currentQuestionNo: " + currentQuestionNo);
+    // console.log("currentQuestionNo: " + currentQuestionNo);
 
     await loadQuestion(currentQuestionNo);
 
@@ -510,4 +510,11 @@ async function loadHeadingData(_location)
 
   window.alert(result.data.data.message);
 }
+
+
+
+
+
+
+
 

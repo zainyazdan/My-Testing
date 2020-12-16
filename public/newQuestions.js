@@ -46,6 +46,9 @@ async function addNewQuestion() {
 
 async function loadQuestionAnswers() {
 
+  await addActivity("Opened My Answers")
+
+
   UnAnsweredQuestion = 0;
   document.getElementById('questions-answers').innerHTML = "";
 
@@ -128,13 +131,13 @@ function splitAnswer(answer) {
   var onlyAnswer = answer.substring(0, bracketIndex);
   var TimeAndKey = answer.substring(bracketIndex);
 
-  console.log("Only answer:" + onlyAnswer + '\n');
+  // console.log("Only answer:" + onlyAnswer + '\n');
   // console.log("TimeAndKey:" + TimeAndKey);
   var time = TimeAndKey.substring(0,TimeAndKey.length -5);
   var key = TimeAndKey.substring(TimeAndKey.length -4);
 
-  console.log("time:" + time);
-  console.log("key:" + key);
+  // console.log("time:" + time);
+  // console.log("key:" + key);
 
   var data = {
       answer: onlyAnswer,
@@ -144,5 +147,21 @@ function splitAnswer(answer) {
   return data;
 }
 
+
+async function addActivity(_activity)
+{
+    var data = JSON.stringify({"activity": _activity});
+
+    var config = {
+    method: 'post',
+    url: baseURL + '/myroutes/addActivities',
+    headers: { 
+        'Content-Type': 'application/json'
+    },
+        data : data
+    };
+
+    await axios(config)
+}
 
 
