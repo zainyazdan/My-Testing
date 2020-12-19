@@ -19,9 +19,9 @@ function LoginUsingPassword() {
     }
     else {
       window.alert("Wrong password");
-      console.log("ghalat");
+      // console.log("ghalat");
 
-      addActivity("wrong password on admin page:" + pass)
+      // addActivity("wrong password on admin page:" + pass)
     }
     console.log("passwordCount : " + passwordCount);
   }
