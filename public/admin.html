@@ -102,7 +102,7 @@
 	<button class="btn btn-primary float-left rightMargin" onclick="loadLLMQuestions()">Load Other Questions</button>
 	<button class="btn btn-primary float-left rightMargin" onclick="showMyAnswerSection()">Give Answer</button>
 
-	<button class="btn btn-primary float-left rightMargin" onclick="()">Update my Questions</button>
+	<button class="btn btn-primary float-left rightMargin" onclick="showUpdateQuestionSection()">Update my Questions</button>
 
 
 
@@ -174,7 +174,7 @@
 
 
 
-	<div class="jumbotron text-center" id="update-question-section" style="visibility: visible;"> 
+	<div class="jumbotron text-center" id="update-question-section" style="visibility: hidden;"> 
 		
 		<h3>Update Questions</h3>
 		<div><b> Question # 
@@ -197,8 +197,6 @@
 			<button onclick="UpdateSectionUpdateQuestion()" class="btn btn-primary">Update</button>
 			<button onclick="UpdateSectionLoadNextQuestion()" class="float-right btn btn-secondary">Next</button>
 		</div>
-
-
 
 	</div>
 

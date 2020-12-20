@@ -6,8 +6,10 @@ var password = 'zainllmzll'
 var passwordCount = 0;
 
 
-// LoginUsingPassword()
-showDiv("all-content");
+LoginUsingPassword()
+// showDiv("all-content");
+
+var pageSections = ['update-question-section', 'questions-answers','add-new-question','my-answers-section']
 
 
 function LoginUsingPassword() {
@@ -642,3 +644,12 @@ async function UpdateSectionLoadNextQuestion()
   await updatesectionloadquestion(questionId);
 }
 
+
+async function showUpdateQuestionSection()
+{
+  showDiv('update-question-section');
+  hideDiv('questions-answers');
+  hideDiv('add-new-question');
+  hideDiv('my-answers-section');
+
+}
