@@ -102,6 +102,8 @@
 	<button class="btn btn-primary float-left rightMargin" onclick="loadLLMQuestions()">Load Other Questions</button>
 	<button class="btn btn-primary float-left rightMargin" onclick="showMyAnswerSection()">Give Answer</button>
 
+	<button class="btn btn-primary float-left rightMargin" onclick="()">Update my Questions</button>
+
 
 
 
@@ -167,10 +169,41 @@
 		<button onclick="addMyAnswer()" class="btn btn-primary">Submit</button>
 
 		<button onclick="loadNextLLmQuestion()" class="float-right btn btn-secondary">Next</button>
+	</div>
+
+
+
+
+	<div class="jumbotron text-center" id="update-question-section" style="visibility: visible;"> 
+		
+		<h3>Update Questions</h3>
+		<div><b> Question # 
+			<span> 
+				<input type="text" id="update-section-question-id">   
+				<button onclick="loadQuestionUupdateSection()" class="btn btn-secondary">Load</button>
+			</span> </b> </div>
+
+
+
+		<b> <div id="update-section-question"> </div></b>
+	
+		<br>
+
+		<textarea id="update-section-inputbox" rows="4" cols="50"></textarea>
+		<div id="update-section-confirmation-message"></div>
+
+		<div>
+			<button onclick="UpdateSectionLoadPreviousQuestion()" class="float-left btn btn-secondary">Previous</button>
+			<button onclick="UpdateSectionUpdateQuestion()" class="btn btn-primary">Update</button>
+			<button onclick="UpdateSectionLoadNextQuestion()" class="float-right btn btn-secondary">Next</button>
+		</div>
 
 
 
 	</div>
+
+
+
 
 </div>
 

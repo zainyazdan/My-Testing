@@ -5,7 +5,10 @@ var baseURL = 'http://llm-yes.herokuapp.com'
 var password = 'zainllmzll'
 var passwordCount = 0;
 
-LoginUsingPassword()
+
+// LoginUsingPassword()
+showDiv("all-content");
+
 
 function LoginUsingPassword() {
 
@@ -528,4 +531,114 @@ async function addActivity(_activity)
     console.log("activity entered");
 }
 
+
+async function loadQuestionUupdateSection()
+{
+  var questionId = document.getElementById('update-section-question-id').value;
+  if(questionId == "")
+  {
+    window.alert("Please enter question number")
+    return
+  }
+  // console.log("questionId : " + questionId);
+  await updatesectionloadquestion(questionId);
+}
+
+
+async function updatesectionloadquestion(id)
+{
+  var config = {
+    method: 'get',
+    url: baseURL + '/question/getQuestion/' + id,
+    headers: { 
+      'Content-Type': 'application/json'
+    }
+  };
+
+  var result = await axios(config);
+
+  if(!result.data.success)
+  {
+    document.getElementById('update-section-inputbox').value = "Question not found"; 
+    document.getElementById('update-section-inputbox').style.color = 'red'
+    return
+    
+  }
+  console.log("result" , result);
+  document.getElementById('update-section-inputbox').value = result.data.data.question;
+}
+
+
+
+
+
+async function UpdateSectionUpdateQuestion()
+{
+  var quuestionId = document.getElementById('update-section-question-id').value;
+  if(quuestionId == "")
+  {
+    window.alert("Please enter question number")
+    return
+  }
+  var newQuuestion = document.getElementById('update-section-inputbox').value;
+
+  console.log("quuestionId : " + quuestionId);
+  console.log("newQuuestion : " + newQuuestion);
+  
+
+  var data = JSON.stringify({"newQuestion":newQuuestion,"questionId":quuestionId});
+  var config = {
+    method: 'put',
+    url: baseURL+ '/myRoutes/updateQuestion',
+    headers: { 
+      'Content-Type': 'application/json'
+    },
+    data : data
+  };
+  
+  var result =  await axios(config);
+  if(result.data.success)
+  {
+    document.getElementById('update-section-confirmation-message').innerHTML = "Question successfully updated"
+    document.getElementById('update-section-confirmation-message').style.color = 'green'
+  }
+
+  setTimeout(() => {
+    document.getElementById("update-section-confirmation-message").innerHTML = '';
+    document.getElementById('update-section-inputbox').value = ''
+  }, 2000);
+
+}
+
+async function UpdateSectionLoadPreviousQuestion()
+{
+  var questionId = document.getElementById('update-section-question-id').value;
+  if(questionId == "")
+  {
+    window.alert("Please enter question number")
+    return
+  }
+  // console.log("questionId : " + questionId);
+  questionId--;
+
+  document.getElementById('update-section-question-id').value = questionId;
+
+  await updatesectionloadquestion(questionId);
+}
+
+async function UpdateSectionLoadNextQuestion()
+{
+  var questionId = document.getElementById('update-section-question-id').value;
+  if(questionId == "")
+  {
+    window.alert("Please enter question number")
+    return
+  }
+  // console.log("questionId : " + questionId);
+  questionId++;
+
+  document.getElementById('update-section-question-id').value = questionId;
+  
+  await updatesectionloadquestion(questionId);
+}
 

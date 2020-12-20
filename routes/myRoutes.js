@@ -95,6 +95,28 @@ router.post('/addActivities', async function (req, res, next) {
 });
 
 
+router.put('/updateQuestion', async function (req, res, next) {
+  try {
+
+    var ques = await questionModel.findOne({id: req.body.questionId});
+    
+    if(!ques)
+    {
+      return res.status(400).json({ success: true, message: "No Question Found against this questionId" })
+    }
+    ques.question = req.body.newQuestion;
+    await ques.save();
+    
+    return res.status(200).json({ success: true, message: "Question Updated" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
 function getCurrentDate() {
   var today = new Date();
   var dd = today.getDate();

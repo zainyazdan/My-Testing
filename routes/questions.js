@@ -80,6 +80,31 @@ router.post('/addQuestion', async function (req, res, next) {
 });
 
 
+
+router.post('/addQuestion', async function (req, res, next) {
+  try {
+
+
+    var questions = await questionModel.find({});
+    var data = new questionModel({
+      id: questions.length + 1,
+      question: req.body.question,
+    });
+    var result = await questionModel.create(data);
+
+
+
+
+    res.status(200).json({ success: true, message: "Question inserted" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
 router.post('/addanswer/:id', async function (req, res, next) {
   try {
 
@@ -388,10 +413,6 @@ router.get('/getTotalQuestions', async function (req, res, next) {
 });
 
 
-
-
-
-
 function getCurrentDate() {
   var today = new Date();
   var dd = today.getDate();
@@ -403,20 +424,6 @@ function getCurrentDate() {
 
   return newDate;
 }
-
-
-// function getCurrentTime() {
-
-//   var d = new Date(); // for now
-//   d.getHours(); // => 9
-//   d.getMinutes(); // =>  30
-//   d.getSeconds(); // => 51
-//   var newTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-//   console.log("newTime : " + newTime);
-
-//   return newTime;
-// }
-
 
 
 function getCurrentTime() {
