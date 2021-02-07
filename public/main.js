@@ -5,6 +5,31 @@ var currentQuestionNo = 1;
 var totalQuestions = 0;
 var questionFetching = false;
 
+var passwordCount = 0;
+var password = 'yes'
+
+LoginUsingPassword()
+
+function LoginUsingPassword() {
+
+  while (passwordCount < 3) {
+    var pass = prompt("Enter password # " + (passwordCount + 1) + "", "");
+
+    if (pass == "")
+      window.alert("Please enter the password");
+    else if (pass == password) {
+      passwordCount++;
+    }
+    else {
+      window.alert("Wrong password");
+      console.log("ghalat");
+    }
+    console.log("passwordCount : " + passwordCount);
+  }
+  console.log("show");
+  showDiv("all-content");
+}
+
 var socket = io();
 socket.emit('joinedSite', 'Gift page');
 
@@ -13,8 +38,6 @@ pageLoaded();
 loadHeadingData('gift-page-alert');
 
 loadInitialData();
-
-
 
 function loadTimeAndDate() {
     var date = getCurrentDate();

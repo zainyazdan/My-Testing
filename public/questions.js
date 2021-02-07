@@ -2,7 +2,7 @@
 var baseURL = 'http://llm-yes.herokuapp.com'
 // var baseURL = 'http://localhost:3000'
 
-var password = 'zainllmzll'
+var password = 'zainllmzll..'
 var passwordCount = 0;
 
 
