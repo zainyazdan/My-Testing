@@ -34,10 +34,11 @@ router.get('/getCurrentLoginAndPasswordInfo', async function (req, res, next) {
     if (login.length == 0) {
       return res.status(200).json({ success: false, message: "Us ne abhi login ni kia 😭" })
     }
+
+
     var activitiesData = await activitiesModel.findOne({date: date })
     console.log("activitiesData : ", activitiesData);
 
-    
     var temp = {
       page: "Activities",
       time: []
@@ -46,7 +47,6 @@ router.get('/getCurrentLoginAndPasswordInfo', async function (req, res, next) {
     for (let i = 0; i < activitiesData.activities.length; i++) {
       temp.time.push(activitiesData.activities[i]);
     }
-
 
     return res.status(200).json({ success: true, loginData: login, passwords: password, activities:temp })
 
@@ -70,7 +70,20 @@ router.get('/getLoginAndPasswordInfo/:date', async function (req, res, next) {
       return res.status(200).json({ success: false, message: "Us ne abhi login ni kia 😭" })
     }
 
-    return res.status(200).json({ success: true, loginData: login, passwords: password, activities:activities })
+    var activitiesData = await activitiesModel.findOne({date: date })
+    console.log("activitiesData : ", activitiesData);
+
+    var temp = {
+      page: "Activities",
+      time: []
+    }
+
+    for (let i = 0; i < activitiesData.activities.length; i++) {
+      temp.time.push(activitiesData.activities[i]);
+    }
+
+    return res.status(200).json({ success: true, loginData: login, passwords: password, activities:temp })
+    // return res.status(200).json({ success: true, loginData: login, passwords: password, activities:activities })
 
   } catch (error) {
     console.log(error);

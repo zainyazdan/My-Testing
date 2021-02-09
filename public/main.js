@@ -501,7 +501,7 @@ async function audioEnded(_songName) {
 async function loadNewQuestions() {
 
 
-    await addActivity("Loading ZLL new added questions");
+    await addActivity("Loading ZLL new added questions on Q#: " + currentQuestionNo);
 
     var config = {
         method: 'get',
