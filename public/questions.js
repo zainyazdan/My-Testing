@@ -1,28 +1,27 @@
-
 var baseURL = 'http://llm-yes.herokuapp.com'
-// var baseURL = 'http://localhost:3000'
+// var baseURL = "http://localhost:3000";
 
-var password = 'zainllmzll..'
+var password = "zainllmzll..";
 var passwordCount = 0;
 
-
-LoginUsingPassword()
+LoginUsingPassword();
 // showDiv("all-content");
 
-var pageSections = ['update-question-section', 'questions-answers','add-new-question','my-answers-section']
-
+var pageSections = [
+  "update-question-section",
+  "questions-answers",
+  "add-new-question",
+  "my-answers-section",
+];
 
 function LoginUsingPassword() {
-
   while (passwordCount < 1) {
     var pass = prompt("Enter password", "");
 
-    if (pass == "")
-      window.alert("Please enter the password");
+    if (pass == "") window.alert("Please enter the password");
     else if (pass == password) {
       passwordCount++;
-    }
-    else {
+    } else {
       window.alert("Wrong password");
       // console.log("ghalat");
 
@@ -34,103 +33,95 @@ function LoginUsingPassword() {
   showDiv("all-content");
 }
 
-
-
 var UnAnsweredQuestion = 0;
 
 async function loadMyQuestionAnswers(uri) {
-
   UnAnsweredQuestion = 0;
 
   var config = {
-    method: 'get',
+    method: "get",
     url: baseURL + uri,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   var result = await axios(config);
   // console.log(result.data);
-
 
   // console.log(result.data.data[0].question)
   // AddQuestionToPage(1 , result.data.data[0].question, []);
   // AddQuestionToPage(1 , result.data.data[0].question, result.data.data[0].answer);
   // AddQuestionToPage(2 , result.data.data[1].question, result.data.data[1].answer)
 
-
   // document.getElementById('questions-answers').innerHTML ="";
 
-
   for (let i = 0; i < result.data.data.length; i++) {
-    AddQuestionToPage(i + 1, result.data.data[i].question, result.data.data[i].answer)
+    AddQuestionToPage(
+      i + 1,
+      result.data.data[i].question,
+      result.data.data[i].answer
+    );
   }
 
-  document.getElementById('unanswered').innerHTML = "Total Unanswered question : " + UnAnsweredQuestion
+  document.getElementById("unanswered").innerHTML =
+    "Total Unanswered question : " + UnAnsweredQuestion;
   document.getElementById("unanswered").style.color = "red";
 }
-
 
 // var question = 'This is my question'
 // var answer = ['This is my andwer 1', 'This is my andwer 2'];
 // AddQuestionToPage(1, question, answer)
 
-
 function AddQuestionToPage(questionNo, question, answer) {
-  
-  var div = document.createElement('div');
-  div.className = 'question-heading'
+  var div = document.createElement("div");
+  div.className = "question-heading";
   div.innerHTML = "Question " + questionNo;
-  document.getElementById('questions-answers').appendChild(div);
+  document.getElementById("questions-answers").appendChild(div);
 
-  var div2 = document.createElement('div');
-  div2.className = 'question'
+  var div2 = document.createElement("div");
+  div2.className = "question";
   div2.innerHTML = question;
-  document.getElementById('questions-answers').appendChild(div2);
-
+  document.getElementById("questions-answers").appendChild(div2);
 
   if (answer.length == 0) {
-    var div = document.createElement('div');
-    div.className = 'empty-answer';
-    div.innerHTML = 'Not answered yet 😭';
+    var div = document.createElement("div");
+    div.className = "empty-answer";
+    div.innerHTML = "Not answered yet 😭";
     // mainDiv.innerHTML += div;
-    document.getElementById('questions-answers').appendChild(div);
+    document.getElementById("questions-answers").appendChild(div);
     UnAnsweredQuestion++;
     return;
   }
 
   for (let i = 0; i < answer.length; i++) {
-    var div = document.createElement('div');
-    div.className = 'answer'
-    div.innerHTML = 'Answer ' + (i + 1) + ': ' + answer[i] + '<br>';
+    var div = document.createElement("div");
+    div.className = "answer";
+    div.innerHTML = "Answer " + (i + 1) + ": " + answer[i] + "<br>";
     // mainDiv.innerHTML += div;
-    document.getElementById('questions-answers').appendChild(div);
+    document.getElementById("questions-answers").appendChild(div);
   }
 }
 
-
-
 async function addQuestion() {
-
-  var newQuestion = document.getElementById('newquestion').value;
+  var newQuestion = document.getElementById("newquestion").value;
 
   // console.log("newQuestion : " + newQuestion);
 
   if (newQuestion == "") {
-    window.alert('enter input');
+    window.alert("enter input");
     return;
   }
 
-  var data = JSON.stringify({ "question": newQuestion });
+  var data = JSON.stringify({ question: newQuestion });
 
   var config = {
-    method: 'post',
-    url: baseURL + '/question/addquestion',
+    method: "post",
+    url: baseURL + "/question/addquestion",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    data: data
+    data: data,
   };
 
   var result = await axios(config);
@@ -140,31 +131,27 @@ async function addQuestion() {
   // console.log("result.data : " , result.data);
   // console.log("result.data.status : " , result.data.success);
 
-
-
   if (result.data.success == true) {
-    document.getElementById('new-question-response').innerHTML = "Question Inserted Successfully ";
+    document.getElementById("new-question-response").innerHTML =
+      "Question Inserted Successfully ";
     document.getElementById("new-question-response").style.color = "green";
-    document.getElementById('newquestion').value = ""
-  }
-  else {
-    document.getElementById('new-question-response').innerHTML = "Error while inserting question";
+    document.getElementById("newquestion").value = "";
+  } else {
+    document.getElementById("new-question-response").innerHTML =
+      "Error while inserting question";
     document.getElementById("new-question-response").style.color = "red";
-    document.getElementById('newquestion').value = ""
+    document.getElementById("newquestion").value = "";
   }
-  document.getElementById("new-question-response").innerHTML = "Question Inserted Successfully";
+  document.getElementById("new-question-response").innerHTML =
+    "Question Inserted Successfully";
 
   setTimeout(() => {
-    document.getElementById("new-question-response").innerHTML = '';
+    document.getElementById("new-question-response").innerHTML = "";
     console.log("Challa");
   }, 2000);
-
-
 }
 
-
 function showQuestionAnswersPanel() {
-
   // let html = '<div class="jumbotron text-center" id="add-new-question">' +
   //             '<h1>Add New Questions</h1>	<br> ' +
   //             '<textarea id="newquestion" rows="4" cols="50"></textarea>' +
@@ -176,21 +163,18 @@ function showQuestionAnswersPanel() {
 
   // document.getElementById('main-box').innerHTML =html
 
-  showDiv('questions-answers');
-  hideDiv('add-new-question');
+  showDiv("questions-answers");
+  hideDiv("add-new-question");
 
   // console.log("aya");
 
-  loadMyQuestionAnswers('/myRoutes/questionAnswers');
+  loadMyQuestionAnswers("/myRoutes/questionAnswers");
 }
-
 
 function showAddQuestionPanel() {
-  hideDiv('questions-answers');
-  showDiv('add-new-question');
+  hideDiv("questions-answers");
+  showDiv("add-new-question");
 }
-
-
 
 function showDiv(id) {
   document.getElementById(id).style.visibility = "visible";
@@ -200,81 +184,73 @@ function hideDiv(id) {
   document.getElementById(id).style.visibility = "hidden";
 }
 
-
-
 var test = false;
 
 function temp() {
   // hideDiv("Testing");
 
   // showDiv();
-  document.getElementById('Testing').innerHTML = ""
+  document.getElementById("Testing").innerHTML = "";
 }
 
-
-
 async function loadLoginTimeInfo(_option) {
-
   var url;
   if (_option == "date") {
-    var date = document.getElementById('login-date').value
+    var date = document.getElementById("login-date").value;
     console.log("date: " + date);
 
     var newDate = changeDateFormat(date);
     // console.log("newDate : "+ newDate);
-    url = baseURL + '/myroutes/getLoginAndPasswordInfo/' + newDate
-  }
-  else {
-    url = baseURL + '/myroutes/getCurrentLoginAndPasswordInfo'
+    url = baseURL + "/myroutes/getLoginAndPasswordInfo/" + newDate;
+  } else {
+    url = baseURL + "/myroutes/getCurrentLoginAndPasswordInfo";
   }
 
   var config = {
-    method: 'get',
+    method: "get",
     url: url,
     headers: {
-      'Content-Type': 'application/json'
-    }
+      "Content-Type": "application/json",
+    },
   };
 
   var result = await axios(config);
 
   console.log("result.data : ", result);
-  document.getElementById('login-info').innerHTML = ''
+  document.getElementById("login-info").innerHTML = "";
 
+  console.log("result: ", result.data);
 
   if (result.data.success == true) {
     for (let j = 0; j < result.data.loginData.length; j++) {
-      loadPageLoginInfo(result.data.loginData[j])
+      loadPageLoginInfo(result.data.loginData[j]);
     }
-    loadPasswordInfo(result.data.passwords);
-    console.log("Password: " , result.data.passwords);
-  }
-  else {
-    document.getElementById('login-info').innerHTML += result.data.message;
+    if (result.data.passwords) loadPasswordInfo(result.data.passwords);
+
+    loadActivityInfo(result.data.activities);
+
+    console.log("Password: ", result.data.passwords);
+  } else {
+    document.getElementById("login-info").innerHTML += result.data.message;
   }
 }
 
-
 function changeDateFormat(date) {
-
   var res = date.split("-");
-  var year = res[0]
-  var month = res[1]
-  var day = res[2]
+  var year = res[0];
+  var month = res[1];
+  var day = res[2];
 
-  if (day[0] == "0")
-    day = res[2][1]
+  if (day[0] == "0") day = res[2][1];
 
-  if (month[0] == "0")
-    month = res[1][1]
+  if (month[0] == "0") month = res[1][1];
 
   // console.log("res : " + res[0]);
 
-  var newDate = day + '-' + month + '-' + year;
+  var newDate = day + "-" + month + "-" + year;
   console.log("newDate() : " + newDate);
-  return newDate
+  return newDate;
 }
-
 
 console.log("getCurrentDate() : " + getCurrentDate());
 function getCurrentDate() {
@@ -289,10 +265,9 @@ function getCurrentDate() {
   return newDate;
 }
 
-
 // {/* <div>
 // Login info  (5)
-// <ul> 
+// <ul>
 //   <li>Coffee</li>
 //   <li>Tea</li>
 //   <li>Milk</li>
@@ -300,194 +275,191 @@ function getCurrentDate() {
 // </div> */}
 
 function loadPageLoginInfo(loginData) {
-
-  var html = '<div> <b>' +
-    loginData.page + ' (' + loginData.count + ') </b> <ul>'
+  var html =
+    "<div> <b>" + loginData.page + " (" + loginData.count + ") </b> <ul>";
   for (let i = 0; i < loginData.time.length; i++) {
-    html += '<li>' + loginData.time[i] + '</li>'
+    html += "<li>" + loginData.time[i] + "</li>";
   }
-  html += '</ul></div>'
+  html += "</ul></div>";
   console.log("html : " + html);
-  document.getElementById('login-info').innerHTML += html
+  document.getElementById("login-info").innerHTML += html;
 }
-
-
 
 function loadPasswordInfo(passwordData) {
-  var html = '<div>' +
-    '<b>Password information (' + passwordData.count + ')</b> <ul>'
+  var html =
+    "<div>" + "<b>Password information (" + passwordData.count + ")</b> <ul>";
   for (let i = 0; i < passwordData.password.length; i++) {
-    html += '<li>' + passwordData.password[i] + '</li>'
+    html += "<li>" + passwordData.password[i] + "</li>";
   }
-  html += '</ul></div>'
+  html += "</ul></div>";
   console.log("html : " + html);
-  document.getElementById('login-info').innerHTML += html
+  document.getElementById("login-info").innerHTML += html;
 }
+
+
+function loadActivityInfo(loginData) {
+  console.log("loginData : ", loginData);
+  var html =
+    "<div> <b>" + loginData.page + " (" + loginData.time.length + ") </b> <ul>";
+  for (let i = 0; i < loginData.time.length; i++) {
+    html += "<li>" + loginData.time[i] + "</li>";
+  }
+  html += "</ul></div>";
+  console.log("html : " + html);
+  document.getElementById("login-info").innerHTML += html;
+}
+
 
 
 
 async function loadLLMQuestions() {
   console.log("loadLLMQuestions()");
-  
-  showDiv('questions-answers');
-  hideDiv('add-new-question');
-  loadMyQuestionAnswers('/newQuestion/questionAnswers');
+
+  showDiv("questions-answers");
+  hideDiv("add-new-question");
+  loadMyQuestionAnswers("/newQuestion/questionAnswers");
 }
 
 var CurrentQuestionToAnswer = 1;
 
-async function showMyAnswerSection()
-{
-  showDiv('my-answers-section');
-  hideDiv('questions-answers');
-  hideDiv('add-new-question');
+async function showMyAnswerSection() {
+  showDiv("my-answers-section");
+  hideDiv("questions-answers");
+  hideDiv("add-new-question");
 
   await loadIndexOfCurrentAnswer();
   await loadQuestionToAnswer();
 }
 
-
-
-
-async function loadIndexOfCurrentAnswer()
-{
+async function loadIndexOfCurrentAnswer() {
   CurrentQuestionToAnswer = await loadNewQuestionIndex();
 }
 
-async function loadQuestionToAnswer()
-{
-  
-
+async function loadQuestionToAnswer() {
   var config = {
-    method: 'get',
-    url: baseURL + '/newQuestion/questionAnswers/'+ CurrentQuestionToAnswer,
-    headers: { 
-      'Content-Type': 'application/json'
-    }
+    method: "get",
+    url: baseURL + "/newQuestion/questionAnswers/" + CurrentQuestionToAnswer,
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
-  var question = await axios(config)
+  var question = await axios(config);
 
-  console.log("my new question : " , question.data.data);
-  document.getElementById('give-answer-id').innerHTML = question.data.data.id;
+  console.log("my new question : ", question.data.data);
+  document.getElementById("give-answer-id").innerHTML = question.data.data.id;
 
-  
-  document.getElementById('llm-question').innerHTML = question.data.data.question;
-  document.getElementById('give-answer-id').innerHTML = question.data.data.id;
+  document.getElementById("llm-question").innerHTML =
+    question.data.data.question;
+  document.getElementById("give-answer-id").innerHTML = question.data.data.id;
 
+  console.log(
+    "question.data.data.answer : " + question.data.data.answer.length
+  );
 
-  console.log("question.data.data.answer : " + question.data.data.answer.length);
-
-  var htmlAnswers = document.getElementById('my-given-answers');
-  htmlAnswers.innerHTML = ''
-  if (question.data.data.answer.length > 0) 
-  {
-    for (let i = 0; i < question.data.data.answer.length ; i++) {
+  var htmlAnswers = document.getElementById("my-given-answers");
+  htmlAnswers.innerHTML = "";
+  if (question.data.data.answer.length > 0) {
+    for (let i = 0; i < question.data.data.answer.length; i++) {
       console.log(question.data.data.answer[i]);
-      htmlAnswers.innerHTML += 'Answer ' + i + ': ' + question.data.data.answer[i] + '<br>';
-
-    } 
+      htmlAnswers.innerHTML +=
+        "Answer " + i + ": " + question.data.data.answer[i] + "<br>";
+    }
   }
-
-
 }
 
+async function addMyAnswer() {
+  var answer = document.getElementById("my-answer").value;
 
-async function addMyAnswer()
-{
-  var answer = document.getElementById('my-answer').value;
-
-  if(answer.length == 0)
-  {
-    window.alert("Answer cannot be empty")
+  if (answer.length == 0) {
+    window.alert("Answer cannot be empty");
     return;
   }
 
-  var data = JSON.stringify({"answer":answer});
+  var data = JSON.stringify({ answer: answer });
 
   var config = {
-    method: 'post',
-    url: baseURL + '/newQuestion/addanswer/'+CurrentQuestionToAnswer+'/zain',
-    headers: { 
-      'Content-Type': 'application/json'
+    method: "post",
+    url:
+      baseURL + "/newQuestion/addanswer/" + CurrentQuestionToAnswer + "/zain",
+    headers: {
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
 
   var result = await axios(config);
-  
+
   if (result.data.success == true) {
-    document.getElementById('llm-answer-response').innerHTML = "Answer Inserted Successfully ";
+    document.getElementById("llm-answer-response").innerHTML =
+      "Answer Inserted Successfully ";
     document.getElementById("llm-answer-response").style.color = "green";
-    document.getElementById('my-answer').value = ""
-  }
-  else {
-    document.getElementById('llm-answer-response').innerHTML = "Error while inserting question";
+    document.getElementById("my-answer").value = "";
+  } else {
+    document.getElementById("llm-answer-response").innerHTML =
+      "Error while inserting question";
     document.getElementById("llm-answer-response").style.color = "red";
-    document.getElementById('my-answer').value = ""
+    document.getElementById("my-answer").value = "";
   }
 
   setTimeout(() => {
-    document.getElementById("llm-answer-response").innerHTML = '';
+    document.getElementById("llm-answer-response").innerHTML = "";
   }, 2000);
 
   CurrentQuestionToAnswer++;
-  console.log("CurrentQuestionToAnswer : "  +CurrentQuestionToAnswer);
+  console.log("CurrentQuestionToAnswer : " + CurrentQuestionToAnswer);
   loadQuestionToAnswer();
 }
 
-async function loadNewQuestionIndex()
-{  
+async function loadNewQuestionIndex() {
   var config = {
-    method: 'get',
-    url: baseURL+'/newQuestion/newQuestionIndex',
-    headers: { 
-      'Content-Type': 'application/json'
-    }
+    method: "get",
+    url: baseURL + "/newQuestion/newQuestionIndex",
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
-  
-  var res = await axios(config)
-  
-  console.log("new index : " , res.data.index);
+
+  var res = await axios(config);
+
+  console.log("new index : ", res.data.index);
   return res.data.index;
 }
 
-async function loadPreviousLLmQuestion()
-{
+async function loadPreviousLLmQuestion() {
   CurrentQuestionToAnswer--;
   loadQuestionToAnswer();
 }
 
-async function loadNextLLmQuestion()
-{
+async function loadNextLLmQuestion() {
   CurrentQuestionToAnswer++;
   loadQuestionToAnswer();
 }
 
-
 async function pageLoaded(type) {
-
   console.log("pageLoaded()");
   var date = getCurrentDate();
   var time = getCurrentTime();
 
   // console.log("pageLoaded()");
 
-  var data = JSON.stringify({ "page": "admin page " + type, "date": date, "time": time });
+  var data = JSON.stringify({
+    page: "admin page " + type,
+    date: date,
+    time: time,
+  });
 
   var config = {
-    method: 'post',
-    url: baseURL + '/visited',
+    method: "post",
+    url: baseURL + "/visited",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
-    data: data
+    data: data,
   };
 
   var result = await axios(config);
   console.log("result : ", result);
 }
-
-
 
 function getCurrentDate() {
   var today = new Date();
@@ -501,9 +473,7 @@ function getCurrentDate() {
   return newDate;
 }
 
-
 function getCurrentTime() {
-
   var d = new Date(); // for now
   d.getHours(); // => 9
   d.getMinutes(); // =>  30
@@ -514,141 +484,124 @@ function getCurrentTime() {
   return newTime;
 }
 
+async function addActivity(_activity) {
+  var data = JSON.stringify({ activity: _activity });
 
-async function addActivity(_activity)
-{
-    var data = JSON.stringify({"activity": _activity});
-
-    var config = {
-    method: 'post',
-    url: baseURL + '/myroutes/addActivities',
-    headers: { 
-        'Content-Type': 'application/json'
+  var config = {
+    method: "post",
+    url: baseURL + "/myroutes/addActivities",
+    headers: {
+      "Content-Type": "application/json",
     },
-        data : data
-    };
+    data: data,
+  };
 
-    await axios(config)
-    console.log("activity entered");
+  await axios(config);
+  console.log("activity entered");
 }
 
-
-async function loadQuestionUupdateSection()
-{
-  var questionId = document.getElementById('update-section-question-id').value;
-  if(questionId == "")
-  {
-    window.alert("Please enter question number")
-    return
+async function loadQuestionUupdateSection() {
+  var questionId = document.getElementById("update-section-question-id").value;
+  if (questionId == "") {
+    window.alert("Please enter question number");
+    return;
   }
   // console.log("questionId : " + questionId);
   await updatesectionloadquestion(questionId);
 }
 
-
-async function updatesectionloadquestion(id)
-{
+async function updatesectionloadquestion(id) {
   var config = {
-    method: 'get',
-    url: baseURL + '/question/getQuestion/' + id,
-    headers: { 
-      'Content-Type': 'application/json'
-    }
+    method: "get",
+    url: baseURL + "/question/getQuestion/" + id,
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   var result = await axios(config);
 
-  if(!result.data.success)
-  {
-    document.getElementById('update-section-inputbox').value = "Question not found"; 
-    document.getElementById('update-section-inputbox').style.color = 'red'
-    return
-    
+  if (!result.data.success) {
+    document.getElementById("update-section-inputbox").value =
+      "Question not found";
+    document.getElementById("update-section-inputbox").style.color = "red";
+    return;
   }
-  console.log("result" , result);
-  document.getElementById('update-section-inputbox').value = result.data.data.question;
+  console.log("result", result);
+  document.getElementById("update-section-inputbox").value =
+    result.data.data.question;
 }
 
-
-
-
-
-async function UpdateSectionUpdateQuestion()
-{
-  var quuestionId = document.getElementById('update-section-question-id').value;
-  if(quuestionId == "")
-  {
-    window.alert("Please enter question number")
-    return
+async function UpdateSectionUpdateQuestion() {
+  var quuestionId = document.getElementById("update-section-question-id").value;
+  if (quuestionId == "") {
+    window.alert("Please enter question number");
+    return;
   }
-  var newQuuestion = document.getElementById('update-section-inputbox').value;
+  var newQuuestion = document.getElementById("update-section-inputbox").value;
 
   console.log("quuestionId : " + quuestionId);
   console.log("newQuuestion : " + newQuuestion);
-  
 
-  var data = JSON.stringify({"newQuestion":newQuuestion,"questionId":quuestionId});
+  var data = JSON.stringify({
+    newQuestion: newQuuestion,
+    questionId: quuestionId,
+  });
   var config = {
-    method: 'put',
-    url: baseURL+ '/myRoutes/updateQuestion',
-    headers: { 
-      'Content-Type': 'application/json'
+    method: "put",
+    url: baseURL + "/myRoutes/updateQuestion",
+    headers: {
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
-  
-  var result =  await axios(config);
-  if(result.data.success)
-  {
-    document.getElementById('update-section-confirmation-message').innerHTML = "Question successfully updated"
-    document.getElementById('update-section-confirmation-message').style.color = 'green'
+
+  var result = await axios(config);
+  if (result.data.success) {
+    document.getElementById("update-section-confirmation-message").innerHTML =
+      "Question successfully updated";
+    document.getElementById("update-section-confirmation-message").style.color =
+      "green";
   }
 
   setTimeout(() => {
-    document.getElementById("update-section-confirmation-message").innerHTML = '';
-    document.getElementById('update-section-inputbox').value = ''
+    document.getElementById("update-section-confirmation-message").innerHTML =
+      "";
+    document.getElementById("update-section-inputbox").value = "";
   }, 2000);
-
 }
 
-async function UpdateSectionLoadPreviousQuestion()
-{
-  var questionId = document.getElementById('update-section-question-id').value;
-  if(questionId == "")
-  {
-    window.alert("Please enter question number")
-    return
+async function UpdateSectionLoadPreviousQuestion() {
+  var questionId = document.getElementById("update-section-question-id").value;
+  if (questionId == "") {
+    window.alert("Please enter question number");
+    return;
   }
   // console.log("questionId : " + questionId);
   questionId--;
 
-  document.getElementById('update-section-question-id').value = questionId;
+  document.getElementById("update-section-question-id").value = questionId;
 
   await updatesectionloadquestion(questionId);
 }
 
-async function UpdateSectionLoadNextQuestion()
-{
-  var questionId = document.getElementById('update-section-question-id').value;
-  if(questionId == "")
-  {
-    window.alert("Please enter question number")
-    return
+async function UpdateSectionLoadNextQuestion() {
+  var questionId = document.getElementById("update-section-question-id").value;
+  if (questionId == "") {
+    window.alert("Please enter question number");
+    return;
   }
   // console.log("questionId : " + questionId);
   questionId++;
 
-  document.getElementById('update-section-question-id').value = questionId;
-  
+  document.getElementById("update-section-question-id").value = questionId;
+
   await updatesectionloadquestion(questionId);
 }
 
-
-async function showUpdateQuestionSection()
-{
-  showDiv('update-question-section');
-  hideDiv('questions-answers');
-  hideDiv('add-new-question');
-  hideDiv('my-answers-section');
-
+async function showUpdateQuestionSection() {
+  showDiv("update-question-section");
+  hideDiv("questions-answers");
+  hideDiv("add-new-question");
+  hideDiv("my-answers-section");
 }
