@@ -413,6 +413,26 @@ router.get('/getTotalQuestions', async function (req, res, next) {
 });
 
 
+router.get('/test', async function (req, res, next) {
+  try {
+
+  
+    console.log("req.connection.remoteAddress : ", req.connection.remoteAddress);
+
+
+
+    
+    return res.status(200).json({ success: true, message: "Hello Test" })
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error : ' + error)
+  }
+});
+
+
+
+
 function getCurrentDate() {
   var today = new Date();
   var dd = today.getDate();

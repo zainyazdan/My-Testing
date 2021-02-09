@@ -6,6 +6,10 @@ var UnAnsweredQuestion = 0;
 
 async function addNewQuestion() {
 
+  
+  await addActivity("LLM Added new question");
+
+
   var question = document.getElementById('new-question').value;
   if (question.length == 0) {
     question

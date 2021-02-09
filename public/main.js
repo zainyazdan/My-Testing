@@ -414,6 +414,9 @@ function getCurrentTime() {
 
 
 async function skipQuestion() {
+
+    await addActivity("My (ZLL) Answer Skipped. on question no : " + currentQuestionNo);
+
     console.log("skipped");
     currentQuestionNo++;
     console.log("skipQuestion() currentQuestionNo : " + currentQuestionNo);
@@ -497,6 +500,9 @@ async function audioEnded(_songName) {
 
 async function loadNewQuestions() {
 
+
+    await addActivity("Loading ZLL new added questions");
+
     var config = {
         method: 'get',
         url: baseURL + '/question/newQuestionIndex',
@@ -534,7 +540,22 @@ async function loadHeadingData(_location)
   window.alert(result.data.data.message);
 }
 
+async function addActivity(_activity)
+{
+    var data = JSON.stringify({"activity": _activity});
 
+    var config = {
+    method: 'post',
+    url: baseURL + '/myroutes/addActivities',
+    headers: { 
+        'Content-Type': 'application/json'
+    },
+        data : data
+    };
+
+    await axios(config)
+    console.log("activity entered");
+}
 
 
 

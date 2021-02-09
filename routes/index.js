@@ -21,7 +21,7 @@ router.post('/visited', async function(req, res, next) {
 
   if(result)
   {
-    result.time.push(getCurrentTime());
+    result.time.push(getCurrentTime() + ", IP=>" + req.connection.remoteAddress);
     result.count++;
     await (await result).save();
     return res.status(200).json({success: true, message : "Time saved aginst date"})
@@ -29,7 +29,7 @@ router.post('/visited', async function(req, res, next) {
 
   var data = new visitedModel({
     date:  getCurrentDate(),
-    time: getCurrentTime(),
+    time: getCurrentTime() + ", IP=>" + req.connection.remoteAddress,
     page: req.body.page
   });
 
@@ -37,9 +37,6 @@ router.post('/visited', async function(req, res, next) {
   return res.status(200).json({success: true, message : "Time saved"})
 
 });
-
-
-
 
 
 function getCurrentDate()

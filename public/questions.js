@@ -515,7 +515,6 @@ function getCurrentTime() {
 }
 
 
-
 async function addActivity(_activity)
 {
     var data = JSON.stringify({"activity": _activity});
